@@ -1,0 +1,136 @@
+body {
+  background-image: url('../img/background.png');
+  background-repeat: repeat;
+}
+
+.container {
+  width: 75%;
+  max-width: $container_max_width;
+  height: $container_max_height;
+  border: 1px solid white;
+  display: block;
+  margin: 0 auto;
+}
+
+/****************************
+LOGO MODULE
+****************************/
+.logo {
+  width: 100%;
+  height: 15%;
+  border: 1px solid green;
+}
+
+    .logo img {
+      height: 80px;
+    }
+
+/**************************
+MAIN MODULE
+*************************/
+.main {
+  position: relative;
+  width: 100%;
+  height: 85%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  -webkit-box-shadow: -25px 0px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: -25px 0px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: -25px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+
+#home {
+  position: absolute;
+  width: 50%;
+  height: 60%;
+  background-color: red;
+  top: 15px;
+  left: 25px;
+  -webkit-box-shadow: -10px 0px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: -10px 0px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: -10px 0px 5px 0px rgba(0,0,0,0.75);
+
+}
+
+#social {
+  position: absolute;
+  width: 30%;
+  height: 60%;
+  left: 430px;
+  top: 15px;
+  background-color: yellow;
+  -webkit-box-shadow: -10px 0px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: -10px 0px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: -10px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+.resume {
+  width: 100%;
+  height: 100%;
+  background-color: green;
+  z-index: -1;
+}
+
+.portfolio {
+  width: 100%;
+  height: 100%;
+  background-color: green;
+  z-index: -1;
+}
+
+.contact {
+  width: 100%;
+  height: 100%;
+  background-color: green;
+  z-index: -1;
+}
+
+.hidden {
+  display: none;
+}
+
+/***************************
+NAVBAR MODULE
+**************************/
+.navbar {
+  width: 100%;
+  height: 10%;
+  border: 1px solid green;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/***************************
+MENU BUTTONS
+**************************/
+
+.button {
+  width: 50px;
+  height: 50px;
+  border: 1px solid red;
+  background-color: yellow;
+  z-index: 1;
+
+}
+
+/**************************
+MOZAIK PANEL
+*************************/
+.panel{
+  background-image: url('../img/panel_bckg.png');
+  background-repeat: no-repeat;
+  background-color: white;
+  height: $panel_height;
+  width: 10%;
+  display: none;
+  margin: 0;
+  padding: 0;
+
+}
+
+.red {
+  background-color: red;
+}
