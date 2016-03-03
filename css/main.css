@@ -6,7 +6,7 @@ body {
 .container {
   width: 75%;
   max-width: 660px;
-  height: 600px;
+  height: 470px;
   border: 1px solid white;
   display: block;
   margin: 0 auto;
@@ -40,7 +40,7 @@ MAIN MODULE
   box-shadow: -25px 0px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
-#home {
+#about_main {
   position: absolute;
   width: 50%;
   height: 60%;
@@ -52,7 +52,7 @@ MAIN MODULE
   box-shadow: -10px 0px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
-#social {
+#about_side {
   position: absolute;
   width: 30%;
   height: 60%;
@@ -64,18 +64,30 @@ MAIN MODULE
   box-shadow: -10px 0px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
-.resume {
-  width: 100%;
-  height: 100%;
+#resume {
+  position: absolute;
+  width: 80%;
+  height: 60%;
   background-color: green;
-  z-index: -1;
+  top: 15px;
+  left: 25px;
+  -webkit-box-shadow: -10px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -10px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: -10px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  display: none;
 }
 
-.portfolio {
-  width: 100%;
-  height: 100%;
+#portfolio {
+  position: absolute;
+  width: 80%;
+  height: 60%;
   background-color: green;
-  z-index: -1;
+  top: 15px;
+  left: 25px;
+  -webkit-box-shadow: -10px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -10px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: -10px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  display: none;
 }
 
 .contact {
@@ -119,17 +131,30 @@ MOZAIK PANEL
   background-image: url("../img/panel_bckg.png");
   background-repeat: no-repeat;
   background-color: white;
-  height: 60px;
+  height: 47px;
   width: 10%;
   display: none;
   margin: 0;
   padding: 0;
 }
 
-.red {
-  background-color: red;
-}
-
 #btnResume {
   background-color: green;
+  background-image: url("../img/resume_icon.png");
+  background-size: contain;
+}
+
+#btnAbout {
+  background-image: url("../img/about_icon.png");
+  background-size: contain;
+}
+
+#btnPortfolio {
+  background-image: url("../img/portfolio_icon.png");
+  background-size: contain;
+}
+
+#btnContact {
+  background-image: url("../img/contact_icon.png");
+  background-size: contain;
 }

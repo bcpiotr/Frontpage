@@ -49,9 +49,52 @@ panel.eq(-4).attr('id', 'btnAbout');
 /****************************************
 AKCJE BUTTONOW
 ***************************************/
+//ABOUT
+$('#btnAbout').on('click',function(){
+  mozaicAnimation("white");
+  fadeOutContent();
+  fadeInContent(about_main);
+  fadeInContent(about_side);
+  console.log('test');
+});
+
+///RESUME
 $('#btnResume').on('click',function(){
   mozaicAnimation("yellow");
+  fadeOutContent();
+  fadeInContent(resume);
+    console.log('test');
+});
+
+//PORTFOLIO
+$('#btnPortfolio').on('click',function(){
+  mozaicAnimation("red");
+  console.log('test');
+});
+
+//contact
+$('#btnContact').on('click',function(){
+  mozaicAnimation("blue");
   console.log('test');
 })
+
+/*************************************
+ALL FADE OUT FUNCTION
+************************************/
+function fadeOutContent (){
+  $('.main').find('.content').fadeOut(3000,function(){
+    console.log('huraaaa');
+  });
+}
+
+/***************************************
+FADE IN FUNCTION
+***************************************/
+function fadeInContent (id){
+  $(id).fadeIn(3000, function(){
+    console.log("jazda");
+  })
+}
+
 
 });
