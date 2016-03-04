@@ -1,0 +1,41 @@
+// ABOUT
+#about_main {
+  position: absolute;
+  width: 50%;
+  height: 75%;
+  top: 15px;
+  left: 25px;
+  @include box-shadow;
+  padding-left: 10px;
+}
+
+    #about_main p {
+      color: red;
+    }
+
+    #about_main img {
+      float: left;
+      height: 100px;
+      margin-right: 10px;
+    }
+
+#about_side {
+  position: absolute;
+  width: 30%;
+  height: 60%;
+  left: 430px;
+  top: 15px;
+  @include box-shadow;
+}
+
+    .socialMedia {
+        padding-top: 40px;
+        list-style-type: none;
+        display: inline-block;
+        padding-left: 0;
+    }
+
+    .socialMedia li {
+      padding: 10px;
+      color: $inactiveBtnColor;
+    }

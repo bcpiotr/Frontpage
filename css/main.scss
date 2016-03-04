@@ -1,3 +1,11 @@
-@import 'modules/variables.scss';
-@import 'partials/grid.scss';
-@import 'partials/buttons.scss';
+@import 'modules/variables.scss'; //wszystkie zmienne
+@import 'modules/mixin.scss'; //wszystkie mixiny
+
+@import 'partials/about.scss'; //styluje sekcje about
+@import 'partials/grid.scss'; //styluje ogolny layout i globalne style
+@import 'partials/buttons.scss'; // styluje buttony
+@import 'partials/resume.scss'; //styluje sekcje resume
+@import 'partials/portfolio.scss'; //styluje sekcje portfolio
+@import 'partials/contact.scss'; //styluje sekcje contact
+
+@import 'modules/globalClasses.scss'; //tu sa globalne klasy
