@@ -1,20 +1,13 @@
-#btnResume {
+#btnResume, #btnAbout, #btnPortfolio, #btnContact {
   justify-content: center;
   align-items: center;
   background-color: rgb(115, 119, 120);
+  @include box-shadow-reset;
 }
-#btnAbout {
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(115, 119, 120);
+
+.activeBtn { //klasa uzywana do oznaczania aktywnego buttona
+
 }
-#btnPortfolio {
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(115, 119, 120);
-}
-#btnContact {
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(115, 119, 120);
+.inactiveBtn { //klasa uzywana tylko do oznaczania aktywnego buttona
+  
 }

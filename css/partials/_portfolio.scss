@@ -1,13 +1,37 @@
 // PORTFOLIO
-#portfolio {
+#portfolio_main {
   position: absolute;
-  width: 80%;
-  height: 60%;
-  background-color: green;
+  width: 50%;
+  height: 75%;
   top: 15px;
   left: 25px;
-  -webkit-box-shadow: -10px 0px 5px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: -10px 0px 5px 0px rgba(0,0,0,0.75);
-  box-shadow: -10px 0px 5px 0px rgba(0,0,0,0.75);
+  @include box-shadow;
+  padding-left: 10px;
   display: none;
+  padding-top: 40px;
 }
+
+.portfolio_details {
+  width: 40%;
+  display: inline-block;
+  float: left;
+  padding-left: 10px;
+}
+
+#portfolio_side {
+  position: absolute;
+  width: 30%;
+  height: 60%;
+  left: 430px;
+  top: 15px;
+  @include box-shadow;
+  display: none;
+  padding-top: 60px;
+  padding-left: 20px;
+}
+
+  #portfolio_side img {
+    width: 30%;
+    padding-left: 5px;
+    display: inline-block;
+  }

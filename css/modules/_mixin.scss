@@ -3,3 +3,7 @@
   -moz-box-shadow: -38px 30px 0px -31px rgba(0,0,0,0.75);
   box-shadow: -38px 30px 0px -31px rgba(0,0,0,0.75);
 }
+
+@mixin box-shadow-reset {
+  box-shadow: none;
+}
