@@ -8,7 +8,7 @@
   @include box-shadow;
   padding-left: 10px;
   display: none;
-  padding-top: 40px;
+  padding-top: 10px;
 }
 
 .portfolio_details {
@@ -16,7 +16,15 @@
   display: inline-block;
   float: left;
   padding-left: 10px;
+  text-align: center;
 }
+  #full_image {
+    display: block;
+
+  }
+  #port_git, #port_link {
+    display: inline;
+  }
 
 #portfolio_side {
   position: absolute;
@@ -31,7 +39,7 @@
 }
 
   #portfolio_side img {
-    width: 30%;
+    width: 40%;
     padding-left: 5px;
     display: inline-block;
   }

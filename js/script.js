@@ -1,29 +1,95 @@
 $(function(){
   var panel = $('.panel');
   var main = $('.main');
+  var maxCoverUpTime = 2000;
+
+  colorsArray = ["#DDDDDD","#DEDEDE","#D9D9D9","#D4D4D4", "#CFCFCF", "#C9C9C9"]; //tablica kolorow wykrozystywanych do animacji moza
 
 
 /***************************
 WYWOLYWANIE FUNKCJI PO OTWARCIU STRONY
 **************************/
-mozaicAnimation("whiteBckg");
+// mozaicAnimation("whiteBckg");
 setButtons();
+mozaicAnimation();
 
+
+/*****************************
+FUNCTION MOZAI ANIMATION2
+****************************/
+function mozaicAnimation(){
+  panel.each(function(index){
+    var delayTime = Math.floor((Math.random() * 3000) + 1000);
+    $(this).css('z-index','1');
+
+
+
+    if (index >= (panel.length-4)) {
+    }
+    else {
+      $(this).delay(delayTime).animate({backgroundColor: 'transparent'},function(){
+      $(this).css('z-index', '0');
+      });
+    }
+
+  });
+};
+
+/*********************************************
+FUNCTION MOZAIC COVER UP
+*********************************************/
+function mozaicAnimationCoverUp(id1, id2){
+  panel.each(function(index){
+    var delayTime = Math.floor((Math.random() * maxCoverUpTime) + 100);
+    var newColor = Math.floor((Math.random() * colorsArray.length) + 0); //losuje kolor do wypelnienia panelu
+
+    if (index >= (panel.length-4)) { //omija ostatnie 4 panele
+    }
+    else {
+      $(this).delay(delayTime).animate({
+        backgroundColor: colorsArray[newColor] //ustawia losowy kolor z tablicy
+
+      },function(){
+        $(this).css('z-index', '1');
+
+      });
+    }
+  });
+  setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
+// `    fadeOutContent();`
+   mozaicAnimation();
+   $('.content').fadeOut(1000,function(){ //chowa cala tresc
+   });
+}, 3000);
+
+
+
+
+setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
+// `    fadeOutContent();`
+ $(id1).fadeIn(1000,function(){ //
+ });
+ $(id2).fadeIn(1000,function(){ //
+ });
+}, 3000);
+
+
+};
 
 /**********************
 FUNCTION - MOZAIC Animation
 **********************/
-function mozaicAnimation(color){
-  panel.each(function( index ) {
-    var delayTime = Math.floor((Math.random() * 5000) + 1000);
-    $(this).css('display', 'none');
-    // $(this).addClass('whiteBckg');
-    $(this).delay(1000).fadeIn( delayTime, function() {
-    // Animation complete
-
-  });
-  });
-}
+// function mozaicAnimation(color){
+//   panel.each(function( index ) {
+//     var delayTime = Math.floor((Math.random() * 5000) + 1000);
+//     $(this).css('display', 'none');
+//     // $(this).addClass('whiteBckg');
+//     $(this).delay(1000).fadeIn( delayTime, function() {
+//     // Animation complete
+//
+//   });
+//   });
+// }
 
 
 /*************************
@@ -67,8 +133,10 @@ function setButtons(){
 AKCJE BUTTONOW - ONCLICK
 ***************************************/
 $('div[id^="btn"]').on('click',function(){
-  mozaicAnimation("white");
-  fadeOutContent();
+  // mozaicAnimation("white");
+  mozaicAnimationCoverUp();
+
+
   $('div[id^="btn"]').css('backgroundColor', '#737778'); //nadaje wszystkim btn nieaktywny kolor
   $(this).css('backgroundColor', '#E9F0F2'); //nadaje kliknietemu kolor aktywny
   $('div[id^="btn"]').removeClass('activeBtn'); //usuwa wszystkim buttonom klase aktiv
@@ -77,21 +145,28 @@ $('div[id^="btn"]').on('click',function(){
   var btnId = $(this).attr('id');
   //sprawdza po ID jaki button zostal nacisniety i laduje odpowiedni content
   if (btnId === "btnAbout") {
-      fadeInContent(about_main);
-      fadeInContent(about_side);
+    mozaicAnimationCoverUp(about_main,about_side);
+      //
+      // fadeInContent(about_main);
+      // fadeInContent(about_side);
   }
   else if (btnId === 'btnResume') {
-      fadeInContent(resume);
+    mozaicAnimationCoverUp(resume);
+      // fadeInContent(resume);
   }
   else if (btnId === 'btnPortfolio') {
-      fadeInContent(portfolio_main);
-      fadeInContent(portfolio_side);
+    mozaicAnimationCoverUp(portfolio_main,portfolio_side);
+      // fadeInContent(portfolio_main);
+      // fadeInContent(portfolio_side);
       generatePortfolio();
   }
   else if (btnId === 'btnContact') {
-      fadeInContent(contact);
+    mozaicAnimationCoverUp(contact);
+      // fadeInContent(contact);
   }
-})
+
+});
+
 
 /***********************************
 AKCJE BUTTONOW - MOUSEOVER/MOUSEOUT
@@ -117,16 +192,15 @@ $('div[id^="btn"]').on('mouseout', function(){
 ALL FADE OUT FUNCTION
 ************************************/
 function fadeOutContent (){
-  $('.main').find('.content').fadeOut(3000,function(){
-  });
+
+
 }
 
 /***************************************
 FADE IN FUNCTION
 ***************************************/
 function fadeInContent (id){
-  $(id).fadeIn(3000, function(){
-  })
+
 }
 
 /**************************************
@@ -147,10 +221,17 @@ function generatePortfolio(){
     var ownlink = $(this).data('ownlink');
     var opis = $(this).data('opis');
 
-    $('#port_full').attr('src', imgSrc);
+    $('#port_full').fadeOut(3000,function(){
+      $('#port_full').attr('src', imgSrc);
+      $('#port_full').fadeIn(3000);
+    })
+    
+
+
+    // // $('#port_full').attr('src', imgSrc);
     $('#port_tags').html('<i class="fa fa-tag"></i> '+ tags);
-    $('#port_git').html('<a href='+gitlink+'><i class="fa fa-github"></i> GitHub</a>');
-    $('#port_link').html('<a href='+ownlink+' target=_blank><i class="fa fa-link"></i>Otworz stronę</a>');
+    $('#port_git').html('| <a href='+gitlink+'><i class="fa fa-github"></i> GitHub</a>');
+    $('#port_link').html('<a href='+ownlink+' target=_blank><i class="fa fa-link"></i> Otworz stronę</a> |');
     $('#port_opis').html('<i class="fa fa-pencil fa-1x"> '+opis+'</i>')
   });
 
