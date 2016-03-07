@@ -1,7 +1,8 @@
 $(function(){
   var panel = $('.panel');
   var main = $('.main');
-  var maxCoverUpTime = 2000;
+  var maxCoverUpTime = 1000;
+  var basicAnimationTime = 1000;
 
   colorsArray = ["#DDDDDD","#DEDEDE","#D9D9D9","#D4D4D4", "#CFCFCF", "#C9C9C9"]; //tablica kolorow wykrozystywanych do animacji moza
 
@@ -19,7 +20,7 @@ FUNCTION MOZAI ANIMATION2
 ****************************/
 function mozaicAnimation(){
   panel.each(function(index){
-    var delayTime = Math.floor((Math.random() * 3000) + 1000);
+    var delayTime = Math.floor((Math.random() * basicAnimationTime) + basicAnimationTime/2);
     $(this).css('z-index','1');
 
 
@@ -40,7 +41,7 @@ FUNCTION MOZAIC COVER UP
 *********************************************/
 function mozaicAnimationCoverUp(id1, id2){
   panel.each(function(index){
-    var delayTime = Math.floor((Math.random() * maxCoverUpTime) + 100);
+    var delayTime = Math.floor((Math.random() * basicAnimationTime) + 100);
     var newColor = Math.floor((Math.random() * colorsArray.length) + 0); //losuje kolor do wypelnienia panelu
 
     if (index >= (panel.length-4)) { //omija ostatnie 4 panele
@@ -58,20 +59,20 @@ function mozaicAnimationCoverUp(id1, id2){
   setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
 // `    fadeOutContent();`
    mozaicAnimation();
-   $('.content').fadeOut(1000,function(){ //chowa cala tresc
+   $('.content').fadeOut(100,function(){ //chowa cala tresc
    });
-}, 3000);
+}, basicAnimationTime);
 
 
 
 
 setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
 // `    fadeOutContent();`
- $(id1).fadeIn(1000,function(){ //
+ $(id1).fadeIn(basicAnimationTime,function(){ //
  });
- $(id2).fadeIn(1000,function(){ //
+ $(id2).fadeIn(basicAnimationTime,function(){ //
  });
-}, 3000);
+}, basicAnimationTime*2);
 
 
 };
@@ -225,7 +226,7 @@ function generatePortfolio(){
       $('#port_full').attr('src', imgSrc);
       $('#port_full').fadeIn(3000);
     })
-    
+
 
 
     // // $('#port_full').attr('src', imgSrc);
