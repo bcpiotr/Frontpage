@@ -1,11 +1,163 @@
-#resume {
+#resume_main {
   position: absolute;
-  width: 80%;
-  height: 60%;
+  width: 30%;
+  height: 75%;
   top: 15px;
   left: 25px;
-  -webkit-box-shadow: -10px 0px 5px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: -10px 0px 5px 0px rgba(0,0,0,0.75);
-  box-shadow: -10px 0px 5px 0px rgba(0,0,0,0.75);
+  @include box-shadow;
+  padding-left: 10px;
+  z-index: 0;
+  // background-color: blue;
   display: none;
+  // border: 1px solid black;
+
+}
+
+#resume_main p {
+  font-size: 12px;
+  display: inline-block;
+  line-height: 0px;
+}
+
+#resume_main a {
+  font-size: 10px;
+  text-decoration: none;
+}
+
+#fullResumeLink {
+  border-top: 1px dashed #737778;
+}
+
+#resume_main i {
+ color: #737778;
+}
+
+#resume_side {
+  position: absolute;
+  width: 50%;
+  height: 60%;
+  left: 263px;
+  top: 66px;
+  @include box-shadow;
+  z-index: 0;
+  // background-color: red;
+  display: none;
+  // border: 1px solid black;
+  overflow-y: scroll;
+  padding-left: 5px;
+}
+  #resume_side p {
+    font-size: 12px;
+  }
+
+#expand {
+  position: fixed;
+  // border: 1px solid red;
+  background-color: #E9F0F2;
+  opacity: 0.2;
+  top: 151px;
+  font-size: 14px;
+  -webkit-transition: font-size 2s;
+   -moz-transition: font-size 2s;
+     -o-transition: font-size 2s;
+        transition: font-size 2s;
+
+}
+#expand:hover {
+  opacity: 1;
+  font-size: 40px;
+  background-color: transparent;
+}
+
+#expanded {
+  width: 70%;
+  height: 100%;
+  z-index: 2;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  left: 15%;
+  padding: 20px;
+  display: none;
+}
+  #expanded #closeBtn {
+    width: 15px;
+    height: 15px;
+    position: fixed;
+    top: 0;
+  }
+
+
+#progressBarHTML {
+    width: 90%;
+    height: 22px;
+    font-size: 10px;
+    margin-top: 5px;
+    // border: 1px solid #111;
+    // background-color: #292929;
+}
+
+#progressBarHTML div {
+    height: 100%;
+    color: #fff;
+    text-align: right;
+    line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+    width: 0;
+    background-color: #0099ff;
+    padding-right: 10px;
+
+}
+
+#progressBarCSS {
+    width: 90%;
+    height: 22px;
+    font-size: 10px;
+    margin-top: 5px;
+    // border: 1px solid #111;
+    // background-color: #292929;
+}
+#progressBarCSS div {
+    height: 100%;
+    color: #fff;
+    text-align: right;
+    line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+    width: 0;
+    background-color: #0099ff;
+    padding-right: 10px;
+}
+
+#progressBarJS {
+    width: 90%;
+    height: 22px;
+    font-size: 10px;
+    margin-top: 5px;
+    // border: 1px solid #111;
+    // background-color: #292929;
+}
+#progressBarJS div {
+    height: 100%;
+    color: #fff;
+    text-align: right;
+    line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+    width: 0;
+    background-color: #0099ff;
+    padding-right: 10px;
+}
+
+#progressBarPS {
+    width: 90%;
+    height: 22px;
+    font-size: 10px;
+    margin-top: 5px;
+    // border: 1px solid #111;
+    // background-color: #292929;
+}
+#progressBarPS div {
+    height: 100%;
+    color: #fff;
+    text-align: right;
+    line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+    width: 0;
+    background-color: #0099ff;
+    padding-right: 10px;
 }

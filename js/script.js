@@ -2,7 +2,7 @@ $(function(){
   var panel = $('.panel');
   var main = $('.main');
   // var maxCoverUpTime = 1000;
-  var basicAnimationTime = 2000;
+  var basicAnimationTime = 500;
 
   colorsArray = ["#FFFFFF"]; //tablica kolorow wykrozystywanych do animacji moza
 
@@ -12,6 +12,7 @@ WYWOLYWANIE FUNKCJI PO OTWARCIU STRONY
 **************************/
 // mozaicAnimation("whiteBckg");
 setButtons();
+loadingBar();
 // mozaicAnimation();
 setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
  mozaicHide();
@@ -75,83 +76,11 @@ function contentHide(){
 }
 
 
-/*****************************
-FUNCTION MOZAI ANIMATION2
-****************************/
-// function mozaicAnimation(){
-//   panel.each(function(index){
-//     var delayTime = Math.floor((Math.random() * basicAnimationTime) + basicAnimationTime/2);
-//     $(this).css('z-index','1');
-//
-//
-//
-//     if (index >= (panel.length-4)) {
-//     }
-//     else {
-//       $(this).animate({backgroundColor: 'transparent'},delayTime,function(){
-//       $(this).css('z-index', '0');
-//       });
-//     }
-//
-//   });
-// };
-
-/*********************************************
-FUNCTION MOZAIC COVER UP
-*********************************************/
-// function mozaicAnimationCoverUp(id1, id2){
-  // panel.each(function(index){
-  //   var delayTime = Math.floor((Math.random() * basicAnimationTime) + 100);
-  //   var newColor = Math.floor((Math.random() * colorsArray.length) + 0); //losuje kolor do wypelnienia panelu
-  //
-  //   if (index >= (panel.length-4)) { //omija ostatnie 4 panele
-  //   }
-  //   else {
-  //       $(this).animate({
-  //       backgroundColor: colorsArray[newColor], //ustawia losowy kolor z tablicy
-  //       zIndex: 1
-  //
-  //     },2000,function(){
-  //
-  //     });
-  //   }
-  // });
-  // setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
-// `    fadeOutContent();`
-//    mozaicAnimation();
-//    $('.content').fadeOut(2000,function(){ //chowa cala tresc
-//      $('.panel').css('z-index','1');
-//    });
-// }, basicAnimationTime);
 
 
-//
-//
-// setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
-// // `    fadeOutContent();`
-//  $(id1).fadeIn(basicAnimationTime,function(){ //
-//  });
-//  $(id2).fadeIn(basicAnimationTime,function(){ //
-//  });
-// }, basicAnimationTime*2);
 
-//
-// };
 
-/**********************
-FUNCTION - MOZAIC Animation
-**********************/
-// function mozaicAnimation(color){
-//   panel.each(function( index ) {
-//     var delayTime = Math.floor((Math.random() * 5000) + 1000);
-//     $(this).css('display', 'none');
-//     // $(this).addClass('whiteBckg');
-//     $(this).delay(1000).fadeIn( delayTime, function() {
-//     // Animation complete
-//
-//   });
-//   });
-// }
+
 
 
 /*************************
@@ -199,6 +128,7 @@ $('div[id^="btn"]').on('click',function(){
   // mozaicAnimationCoverUp();
   // contentHide();
   mozaicShow();
+  loadingBar();
 
 
 
@@ -211,7 +141,13 @@ $('div[id^="btn"]').on('click',function(){
        // fadeInContent(about_side);
    }
    else if (btnId === 'btnResume') {
-     contentShow(resume);
+     contentShow(resume_main,resume_side);
+     progress(80, $('#progressBarHTML'),'HTML');
+     progress(60, $('#progressBarCSS'),'CSS');
+     progress(70, $('#progressBarJS'),'JS');
+     progress(60, $('#progressBarPS'),'PHOTOSHOP');
+
+
        // fadeInContent(resume);
    }
    else if (btnId === 'btnPortfolio') {
@@ -268,20 +204,6 @@ $('div[id^="btn"]').on('mouseout', function(){
 })
 
 
-/*************************************
-ALL FADE OUT FUNCTION
-************************************/
-function fadeOutContent (){
-
-
-}
-
-/***************************************
-FADE IN FUNCTION
-***************************************/
-function fadeInContent (id){
-
-}
 
 /**************************************
 PORTFOLIO SCRIPTS
@@ -321,17 +243,6 @@ function generatePortfolio(){
 
 }
 
-
-// images.each(function( index ) {
-//   var delayTime = Math.floor((Math.random() * 5000) + 1000);
-//   $(this).css('display', 'none');
-//   // $(this).addClass('whiteBckg');
-//   $(this).delay(1000).fadeIn( delayTime, function() {
-//   // Animation complete
-//
-// });
-// });
-
 /*****************************************************
 SLIDER
 ******************************************************/
@@ -343,6 +254,44 @@ function slider(){
     slideMargin: 10
   });
 };
+
+/****************************************************
+FUNCKJA ANIMUJACA PROGRESS bary
+*****************************************************/
+function progress(percent, $element,skill) {
+    var progressBarWidth = percent * $element.width() / 100;
+    $element.find('div').delay(4000).animate({ width: progressBarWidth }, 1500).html(skill);
+    $element.find('div').addClass('progressBar');
+    // skillDetails();
+}
+/*************************************************
+LOADING BAR FUNCTION
+************************************************/
+function loadingBar(){
+  $('.loadingBar').css('width','0%');
+  $('.loadingBar').animate({width: '100%'},basicAnimationTime*2);
+}
+
+
+/************************************************
+RESUME EXPAND FUNCTION
+************************************************/
+
+$('#expand').on('click',function(){
+  var text = $('#resume_content').html(); //pobiera tresc z sekcji resume_side
+  var newDiv = $("<div id='expanded'>"+text+"<span id='closeBtn'><i class='fa fa-times'></i></span></div>");
+  newDiv.appendTo(document.body);
+  $('#expanded').fadeIn(2000);
+  console.log(text);
+
+  $('#closeBtn').on('click',function(){
+    $('#expanded').fadeOut(2000);
+  });
+
+
+});
+
+
 
 
 
