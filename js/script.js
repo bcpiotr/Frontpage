@@ -123,16 +123,21 @@ function setButtons(){
 /****************************************
 AKCJE BUTTONOW - ONCLICK
 ***************************************/
-$('div[id^="btn"]').on('click',function(){
+$('div[id^="btn"]:not(.activeBtn)').on('click',function(){
   // mozaicAnimation("white");
   // mozaicAnimationCoverUp();
   // contentHide();
   mozaicShow();
   loadingBar();
 
-
+  // if ($(this).hasClass('activeBtn')) {
+  //   console.log('brejk!');
+  //   return 0;
+  //   // break;
+  // }
 
   setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
+    console.log('settime');
    contentHide();
    if (btnId === "btnAbout") {
      contentShow(about_main,about_side);
@@ -228,16 +233,16 @@ function generatePortfolio(){
       $('#port_full').fadeIn(2000);
     })
 
-    // main.css('backgroundImage', 'url(img/portfolio/placeholder.png)');
+    // main.css('backgroundImage', 'url(img/portfolio/'+imgSrc+')');
     // panel.css('backgroundColor','transparent');
 
 
     //
     // $('#port_full').attr('src', imgSrc);
     $('#port_tags').html('<i class="fa fa-tag"></i> '+ tags);
-    $('#port_git').html('| <a href='+gitlink+'><i class="fa fa-github"></i> GitHub</a>');
-    $('#port_link').html('<a href='+ownlink+' target=_blank><i class="fa fa-link"></i> Otworz stronę</a> |');
-    $('#port_opis').html('<i class="fa fa-pencil fa-1x"> '+opis+'</i>')
+    $('#port_git').html('<a href='+gitlink+'><i class="fa fa-github"></i></a>');
+    $('#port_link').html('<a href='+ownlink+' target=_blank><i class="fa fa-link"></i></a>');
+    $('#port_opis').html('<i class="fa fa-pencil"> '+opis+'</i>')
   });
 
 
@@ -247,12 +252,20 @@ function generatePortfolio(){
 SLIDER
 ******************************************************/
 function slider(){
-  $('.slider8').bxSlider({
-    mode: 'vertical',
-    slideWidth: 300,
-    minSlides: 3,
+  // $('.slider8').bxSlider({
+  //   mode: 'vertical',
+  //   slideWidth: 300,
+  //   minSlides: 3,
+  //   slideMargin: 10
+  // });
+  $(document).ready(function(){
+  $('.slider1').bxSlider({
+    slideWidth: 200,
+    minSlides: 4,
+    maxSlides: 6,
     slideMargin: 10
   });
+});
 };
 
 /****************************************************

@@ -181,6 +181,7 @@ LOADING BAR
   z-index: 0;
   display: none;
   overflow-y: scroll;
+  padding-left: 5px;
 }
 
 #resume_side p {
@@ -312,13 +313,20 @@ LOADING BAR
 
 #portfolio_main {
   position: absolute;
-  width: 50%;
-  height: 70%;
+  width: 90%;
+  height: 50%;
   top: 15px;
-  left: 25px;
+  left: 5%;
   padding-left: 10px;
   display: none;
   padding-top: 10px;
+}
+
+#portfolio_main img {
+  width: 60%;
+  padding-left: 5px;
+  display: inline-block;
+  opacity: 0.7;
 }
 
 .portfolio_details {
@@ -327,30 +335,35 @@ LOADING BAR
 
 #full_image {
   display: inline-block;
+  float: left;
 }
 
 #port_opis {
-  display: block;
-  width: 100%;
+  display: inline-block;
+  float: right;
+  width: 35%;
   border: 1px dotted black;
 }
 
 #port_git, #port_link, #port_tags {
   display: inline-block;
-  border: 1px dotted black;
-  width: 25%;
-  height: 20%;
+  margin-left: 15px;
+  float: left;
+  vertical-align: bottom;
+}
+
+#port_tags {
+  float: right;
+  font-size: 8px;
 }
 
 #portfolio_side {
   position: absolute;
-  width: 30%;
-  height: 60%;
-  left: 410px;
-  top: -15px;
+  width: 90%;
+  height: 15%;
+  left: 5%;
+  top: 240px;
   display: none;
-  padding-top: 60px;
-  padding-left: 20px;
 }
 
 #portfolio_side img {
