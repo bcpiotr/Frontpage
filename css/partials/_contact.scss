@@ -1,12 +1,64 @@
-#contact {
+#contact_main {
   position: absolute;
-  width: 80%;
-  height: 60%;
-  background-color: green;
+  width: 50%;
+  height: 75%;
   top: 15px;
   left: 25px;
-  -webkit-box-shadow: -10px 0px 5px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: -10px 0px 5px 0px rgba(0,0,0,0.75);
-  box-shadow: -10px 0px 5px 0px rgba(0,0,0,0.75);
+  @include box-shadow;
+  padding-left: 10px;
+  z-index: 0;
+  // background-color: blue;
   display: none;
+}
+
+#contact_side {
+  position: absolute;
+  width: 30%;
+  height: 60%;
+  left: 430px;
+  top: 15px;
+  @include box-shadow;
+  z-index: 0;
+  // background-color: red;
+  display: none;
+}
+
+form {
+  width: 300px;
+}
+
+input[type=text] {
+   border: 1px solid #737778;
+   margin-top: 5px;
+   padding: 5px;
+
+}
+#contact-message {
+   border: 1px solid #737778;
+   margin-top: 5px;
+}
+input[type=submit] {
+   border: 1px solid #737778;
+   background-color: #737778;
+   color: white;
+   font-weight: bold;
+  //  margin: 5px;
+   padding: 5px 15px;
+
+}
+
+.contact_details {
+    padding-top: 40px;
+    list-style-type: none;
+    display: inline-block;
+    padding-left: 0;
+    font-size: 10px;
+    margin-top: 21px;
+}
+
+.contact_details li {
+  padding: 10px;
+  color: $inactiveBtnColor;
+  border: 1px solid black;
+  height: 20px;
 }

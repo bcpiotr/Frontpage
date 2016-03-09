@@ -1,10 +1,10 @@
 $(function(){
   var panel = $('.panel');
   var main = $('.main');
-  var maxCoverUpTime = 1000;
-  var basicAnimationTime = 1000;
+  // var maxCoverUpTime = 1000;
+  var basicAnimationTime = 2000;
 
-  colorsArray = ["#DDDDDD","#DEDEDE","#D9D9D9","#D4D4D4", "#CFCFCF", "#C9C9C9"]; //tablica kolorow wykrozystywanych do animacji moza
+  colorsArray = ["#FFFFFF"]; //tablica kolorow wykrozystywanych do animacji moza
 
 
 /***************************
@@ -12,70 +12,131 @@ WYWOLYWANIE FUNKCJI PO OTWARCIU STRONY
 **************************/
 // mozaicAnimation("whiteBckg");
 setButtons();
-mozaicAnimation();
+// mozaicAnimation();
+setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
+ mozaicHide();
+}, 1000);
+
+
+/*********************************
+FUNCTION MozaicShow
+********************************/
+function mozaicShow(){
+  panel.each(function(index){
+    $(this).css('z-index', '1');
+    var delayTime = Math.floor((Math.random() * 2000) + 500);
+    if (index >= (panel.length-4)) {
+        }
+        else {
+          $(this).delay(delayTime).animate({
+            backgroundColor: 'white',
+          },function(){
+          });
+        }
+  });
+}
+
+
+/*******************************
+FUNCTION MozaicHide
+*******************************/
+function mozaicHide(){
+
+  panel.each(function(index){
+    var delayTime = Math.floor((Math.random() * 2000) + 500);
+    if (index >= (panel.length-4)) {
+        }
+        else {
+          $(this).delay(delayTime).animate({backgroundColor: 'transparent'},function(){
+          $(this).css('z-index', '0');
+
+          });
+        }
+  });
+}
+
+/*******************************
+FUNCTION ContentShow
+*******************************/
+function contentShow(id1,id2){
+  $(id1).fadeIn(100,function(){ //
+  });
+  $(id2).fadeIn(100,function(){ //
+  });
+}
+
+/*******************************
+FUNCTION contentHide
+*******************************/
+function contentHide(){
+  $('.content').fadeOut(100,function(){
+
+  });
+}
 
 
 /*****************************
 FUNCTION MOZAI ANIMATION2
 ****************************/
-function mozaicAnimation(){
-  panel.each(function(index){
-    var delayTime = Math.floor((Math.random() * basicAnimationTime) + basicAnimationTime/2);
-    $(this).css('z-index','1');
-
-
-
-    if (index >= (panel.length-4)) {
-    }
-    else {
-      $(this).delay(delayTime).animate({backgroundColor: 'transparent'},function(){
-      $(this).css('z-index', '0');
-      });
-    }
-
-  });
-};
+// function mozaicAnimation(){
+//   panel.each(function(index){
+//     var delayTime = Math.floor((Math.random() * basicAnimationTime) + basicAnimationTime/2);
+//     $(this).css('z-index','1');
+//
+//
+//
+//     if (index >= (panel.length-4)) {
+//     }
+//     else {
+//       $(this).animate({backgroundColor: 'transparent'},delayTime,function(){
+//       $(this).css('z-index', '0');
+//       });
+//     }
+//
+//   });
+// };
 
 /*********************************************
 FUNCTION MOZAIC COVER UP
 *********************************************/
-function mozaicAnimationCoverUp(id1, id2){
-  panel.each(function(index){
-    var delayTime = Math.floor((Math.random() * basicAnimationTime) + 100);
-    var newColor = Math.floor((Math.random() * colorsArray.length) + 0); //losuje kolor do wypelnienia panelu
-
-    if (index >= (panel.length-4)) { //omija ostatnie 4 panele
-    }
-    else {
-      $(this).delay(delayTime).animate({
-        backgroundColor: colorsArray[newColor] //ustawia losowy kolor z tablicy
-
-      },function(){
-        $(this).css('z-index', '1');
-
-      });
-    }
-  });
-  setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
+// function mozaicAnimationCoverUp(id1, id2){
+  // panel.each(function(index){
+  //   var delayTime = Math.floor((Math.random() * basicAnimationTime) + 100);
+  //   var newColor = Math.floor((Math.random() * colorsArray.length) + 0); //losuje kolor do wypelnienia panelu
+  //
+  //   if (index >= (panel.length-4)) { //omija ostatnie 4 panele
+  //   }
+  //   else {
+  //       $(this).animate({
+  //       backgroundColor: colorsArray[newColor], //ustawia losowy kolor z tablicy
+  //       zIndex: 1
+  //
+  //     },2000,function(){
+  //
+  //     });
+  //   }
+  // });
+  // setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
 // `    fadeOutContent();`
-   mozaicAnimation();
-   $('.content').fadeOut(100,function(){ //chowa cala tresc
-   });
-}, basicAnimationTime);
+//    mozaicAnimation();
+//    $('.content').fadeOut(2000,function(){ //chowa cala tresc
+//      $('.panel').css('z-index','1');
+//    });
+// }, basicAnimationTime);
 
 
+//
+//
+// setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
+// // `    fadeOutContent();`
+//  $(id1).fadeIn(basicAnimationTime,function(){ //
+//  });
+//  $(id2).fadeIn(basicAnimationTime,function(){ //
+//  });
+// }, basicAnimationTime*2);
 
-
-setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
-// `    fadeOutContent();`
- $(id1).fadeIn(basicAnimationTime,function(){ //
- });
- $(id2).fadeIn(basicAnimationTime,function(){ //
- });
-}, basicAnimationTime*2);
-
-
-};
+//
+// };
 
 /**********************
 FUNCTION - MOZAIC Animation
@@ -135,7 +196,44 @@ AKCJE BUTTONOW - ONCLICK
 ***************************************/
 $('div[id^="btn"]').on('click',function(){
   // mozaicAnimation("white");
-  mozaicAnimationCoverUp();
+  // mozaicAnimationCoverUp();
+  // contentHide();
+  mozaicShow();
+
+
+
+  setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
+   contentHide();
+   if (btnId === "btnAbout") {
+     contentShow(about_main,about_side);
+       //
+       // fadeInContent(about_main);
+       // fadeInContent(about_side);
+   }
+   else if (btnId === 'btnResume') {
+     contentShow(resume);
+       // fadeInContent(resume);
+   }
+   else if (btnId === 'btnPortfolio') {
+     contentShow(portfolio_main,portfolio_side);
+     slider();
+
+
+       // fadeInContent(portfolio_main);
+       // fadeInContent(portfolio_side);
+       generatePortfolio();
+   }
+   else if (btnId === 'btnContact') {
+     contentShow(contact_main,contact_side);
+       // fadeInContent(contact);
+   }
+ }, 3000);
+
+ setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
+  mozaicHide();
+}, 5000);
+
+
 
 
   $('div[id^="btn"]').css('backgroundColor', '#737778'); //nadaje wszystkim btn nieaktywny kolor
@@ -145,26 +243,7 @@ $('div[id^="btn"]').on('click',function(){
 
   var btnId = $(this).attr('id');
   //sprawdza po ID jaki button zostal nacisniety i laduje odpowiedni content
-  if (btnId === "btnAbout") {
-    mozaicAnimationCoverUp(about_main,about_side);
-      //
-      // fadeInContent(about_main);
-      // fadeInContent(about_side);
-  }
-  else if (btnId === 'btnResume') {
-    mozaicAnimationCoverUp(resume);
-      // fadeInContent(resume);
-  }
-  else if (btnId === 'btnPortfolio') {
-    mozaicAnimationCoverUp(portfolio_main,portfolio_side);
-      // fadeInContent(portfolio_main);
-      // fadeInContent(portfolio_side);
-      generatePortfolio();
-  }
-  else if (btnId === 'btnContact') {
-    mozaicAnimationCoverUp(contact);
-      // fadeInContent(contact);
-  }
+
 
 });
 
@@ -222,14 +301,17 @@ function generatePortfolio(){
     var ownlink = $(this).data('ownlink');
     var opis = $(this).data('opis');
 
-    $('#port_full').fadeOut(3000,function(){
+    $('#port_full').fadeOut(2000,function(){
       $('#port_full').attr('src', imgSrc);
-      $('#port_full').fadeIn(3000);
+      $('#port_full').fadeIn(2000);
     })
 
+    // main.css('backgroundImage', 'url(img/portfolio/placeholder.png)');
+    // panel.css('backgroundColor','transparent');
 
 
-    // // $('#port_full').attr('src', imgSrc);
+    //
+    // $('#port_full').attr('src', imgSrc);
     $('#port_tags').html('<i class="fa fa-tag"></i> '+ tags);
     $('#port_git').html('| <a href='+gitlink+'><i class="fa fa-github"></i> GitHub</a>');
     $('#port_link').html('<a href='+ownlink+' target=_blank><i class="fa fa-link"></i> Otworz stronę</a> |');
@@ -249,6 +331,18 @@ function generatePortfolio(){
 //
 // });
 // });
+
+/*****************************************************
+SLIDER
+******************************************************/
+function slider(){
+  $('.slider8').bxSlider({
+    mode: 'vertical',
+    slideWidth: 300,
+    minSlides: 3,
+    slideMargin: 10
+  });
+};
 
 
 

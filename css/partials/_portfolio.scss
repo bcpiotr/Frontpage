@@ -1,45 +1,69 @@
 // PORTFOLIO
-#portfolio_main {
+#portfolio {
+  background-image: url('../img/portffolio1.jpg');
   position: absolute;
-  width: 50%;
-  height: 75%;
-  top: 15px;
-  left: 25px;
+  width: 100%;
+  height: 80%;
+  // top: 15px;
+  // left: 25px;
   @include box-shadow;
   padding-left: 10px;
   display: none;
   padding-top: 10px;
+  z-index: -1;
+}
+#portfolio_main {
+  position: absolute;
+  width: 50%;
+  height: 70%;
+  top: 15px;
+  left: 25px;
+  // @include box-shadow;
+  padding-left: 10px;
+  display: none;
+  padding-top: 10px;
+  // border: 1px solid red;
+  // background-color: 'tr';
 }
 
 .portfolio_details {
-  width: 40%;
-  display: inline-block;
-  float: left;
-  padding-left: 10px;
+  // width: 40%;
+  // display: inline-block;
+  // float: left;
+  // padding-left: 10px;
   text-align: center;
+  // border: 1px solid black;
 }
   #full_image {
-    display: block;
+    display: inline-block;
 
   }
-  #port_git, #port_link {
-    display: inline;
+  #port_opis {
+    display: block;
+    width: 100%;
+    border: 1px dotted black;
+  }
+  #port_git, #port_link, #port_tags {
+    display: inline-block;
+    border: 1px dotted black;
+    width: 25%;
+    height: 20%;
   }
 
 #portfolio_side {
   position: absolute;
   width: 30%;
   height: 60%;
-  left: 430px;
-  top: 15px;
-  @include box-shadow;
+  left: 410px;
+  top: -15px;
+  // @include box-shadow;
   display: none;
   padding-top: 60px;
   padding-left: 20px;
 }
 
   #portfolio_side img {
-    width: 40%;
+    width: 100%;
     padding-left: 5px;
     display: inline-block;
   }

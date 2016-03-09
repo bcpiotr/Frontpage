@@ -7,6 +7,7 @@
   left: 25px;
   @include box-shadow;
   padding-left: 10px;
+  z-index: 0;
 }
 
     #about_main p {
@@ -26,6 +27,7 @@
   left: 430px;
   top: 15px;
   @include box-shadow;
+  z-index: 0;
 }
 
     .socialMedia {
