@@ -1,56 +1,49 @@
 $(function(){
   var panel = $('.panel');
   var main = $('.main');
-  var basicAnimationTime = 1000;
+  var basicAnimationTime = 1000; //okresla wyjsciowy czas trwania animacji
 
-  colorsArray = ["#FFFFFF"]; //tablica kolorow wykrozystywanych do animacji moza
+  colorsArray = ["#FFFFFF"]; //tablica kolorow wykrozystywanych do animacji mozaiki, umozliwia ustawienie wiele kolorow mozaiki
 
 
 /***************************
 WYWOLYWANIE FUNKCJI PO OTWARCIU STRONY
 **************************/
-// mozaicAnimation("whiteBckg");
 setButtons();
 loadingBar();
-// mozaicAnimation();
+
 setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
  mozaicHide();
 }, basicAnimationTime/2);
 
 
-/*********************************
-FUNCTION MozaicShow
-********************************/
+/********************************************
+FUNCTION MozaicShow - przykrywa tresc mozaika
+********************************************/
 function mozaicShow(){
   panel.each(function(index){
     $(this).css('z-index', '1');
     var delayTime = Math.floor((Math.random() * basicAnimationTime) + 100);
-    if (index >= (panel.length-4)) {
-        }
-        else {
-          $(this).delay(delayTime).animate({
-            backgroundColor: 'white',
-          },function(){
-          });
-        }
+    if (index < (panel.length-4)) {
+      $(this).delay(delayTime).animate({
+        backgroundColor: 'white',
+      },function(){
+      });
+    }
   });
 }
 
 
-/*******************************
-FUNCTION MozaicHide
-*******************************/
+/*********************************************
+FUNCTION MozaicHide - chowa mozaike pod tresc
+*********************************************/
 function mozaicHide(){
-
   panel.each(function(index){
     var delayTime = Math.floor((Math.random() * basicAnimationTime) + 100);
-    if (index >= (panel.length-4)) {
-        }
-        else {
-          $(this).delay(delayTime).animate({backgroundColor: 'transparent'},function(){
-          $(this).css('z-index', '0');
-
-          });
+    if (index < (panel.length-4)) {
+      $(this).delay(delayTime).animate({backgroundColor: 'transparent'},function(){
+      $(this).css('z-index', '0');
+        });
         }
   });
 }
@@ -59,9 +52,9 @@ function mozaicHide(){
 FUNCTION ContentShow
 *******************************/
 function contentShow(id1,id2){
-  $(id1).fadeIn(100,function(){ //
+  $(id1).fadeIn(100,function(){
   });
-  $(id2).fadeIn(100,function(){ //
+  $(id2).fadeIn(100,function(){
   });
 }
 
@@ -73,13 +66,6 @@ function contentHide(){
 
   });
 }
-
-
-
-
-
-
-
 
 
 /*************************
@@ -94,7 +80,6 @@ FUNCTION PANEL RESIZE
 //Przy resize zmienia w css height i width panelu
   $(window).on('resize',function(){
     width = main.width()/10;
-    console.log(width);
     panel.css("height", width, "width", width);
   })
 
@@ -104,7 +89,6 @@ FUNCTION SET BUTTONS - ustawia buttony na ostatnich panelach
 function setButtons(){
   panel.last().attr('id', 'btnContact');
   panel.last().html('<i class="fa fa-envelope fa-2x"></i>');
-
 
   panel.eq(-2).attr('id', 'btnPortfolio');
   panel.eq(-2).html('<i class="fa fa-folder fa-2x"></i>');
@@ -123,59 +107,45 @@ function setButtons(){
 AKCJE BUTTONOW - ONCLICK
 ***************************************/
 $('div[id^="btn"]').on('click',function(){
-  // mozaicAnimation("white");
-  // mozaicAnimationCoverUp();
-  // contentHide();
+  var btnId = $(this).attr('id');
 
-  if ($(this).hasClass('activeBtn')) { //blokuje opcje klikniecia w aktywny button
+  if ($(this).hasClass('activeBtn')) { //sprawdza czy button nie jest aktywny i ew. blokuje klikniecie
     console.log('brejk!');
     return 0;
-    // break;
   }
 
-  mozaicShow();
-  loadingBar();
-
-
+  mozaicShow(); //pokazuje mozaike
+  loadingBar(); //uruchamia loadingBar'a
 
   setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
    contentHide();
    if (btnId === "btnAbout") {
      contentShow(about_main,about_side);
-       //
-       // fadeInContent(about_main);
-       // fadeInContent(about_side);
    }
+
    else if (btnId === 'btnResume') {
      contentShow(resume_main,resume_side);
      progress(80, $('#progressBarHTML'),'HTML');
      progress(60, $('#progressBarCSS'),'CSS');
      progress(70, $('#progressBarJS'),'JS');
      progress(60, $('#progressBarPS'),'PHOTOSHOP');
-
-
-       // fadeInContent(resume);
    }
+
    else if (btnId === 'btnPortfolio') {
      contentShow(portfolio_main,portfolio_side);
      slider();
-
-
-       // fadeInContent(portfolio_main);
-       // fadeInContent(portfolio_side);
-       generatePortfolio();
+     generatePortfolio();
    }
+
    else if (btnId === 'btnContact') {
      contentShow(contact_main,contact_side);
-       // fadeInContent(contact);
    }
+
  }, basicAnimationTime*1.5);
 
- setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
+ setTimeout(function() {   //po pelnym zaladowaniu tresci chowa mozaike
   mozaicHide();
 }, basicAnimationTime*1.5);
-
-
 
 
   $('div[id^="btn"]').css('backgroundColor', '#737778'); //nadaje wszystkim btn nieaktywny kolor
@@ -183,28 +153,19 @@ $('div[id^="btn"]').on('click',function(){
   $('div[id^="btn"]').removeClass('activeBtn'); //usuwa wszystkim buttonom klase aktiv
   $(this).addClass('activeBtn'); //nadaje klase aktiv kliknietemu butonowi
 
-  var btnId = $(this).attr('id');
-  //sprawdza po ID jaki button zostal nacisniety i laduje odpowiedni content
-
-
 });
-
 
 /***********************************
 AKCJE BUTTONOW - MOUSEOVER/MOUSEOUT
 ***********************************/
 $('div[id^="btn"]').on('mouseover', function(){
-  if ($(this).hasClass('activeBtn')) {  //sprawdza czy button ma klase active, jak nie, to go podswietla
-  }
-  else {
-    $(this).css('backgroundColor', '#E9F0F2')
+  if (!$(this).hasClass('activeBtn')) {  //sprawdza czy button ma klase active, jak nie, to go podswietla
+    $(this).css('backgroundColor', '#E9F0F2');
   }
 
 })
 $('div[id^="btn"]').on('mouseout', function(){
-  if ($(this).hasClass('activeBtn')) {  //sprawdza czy button ma klase active, jak nie, to go podswietla
-  }
-  else {
+  if (!$(this).hasClass('activeBtn')) {  //sprawdza czy button ma klase active, jak nie, to go podswietla
     $(this).css('backgroundColor', '#737778')
   }
 })
@@ -234,17 +195,6 @@ function generatePortfolio(){
       $('#port_full').fadeIn(2000);
     })
 
-    // main.animate({backgroundImage: 'url('+imgSrc+')'},function(){
-    //
-    // });
-    // main.css('backgroundImage', 'url('+imgSrc+')');
-    // panel.css('backgroundColor','transparent');
-
-
-
-
-    //
-    // $('#port_full').attr('src', imgSrc);
     $('#port_tags').html('<i class="fa fa-tag"></i> '+ tags);
     $('#port_git').html('<a href='+gitlink+'><i class="fa fa-github"></i></a>');
     $('#port_link').html('<a href='+ownlink+' target=_blank><i class="fa fa-link"></i></a>');
@@ -258,12 +208,6 @@ function generatePortfolio(){
 SLIDER
 ******************************************************/
 function slider(){
-  // $('.slider8').bxSlider({
-  //   mode: 'vertical',
-  //   slideWidth: 300,
-  //   minSlides: 3,
-  //   slideMargin: 10
-  // });
   $(document).ready(function(){
   $('.slider1').bxSlider({
     slideWidth: 200,
@@ -281,7 +225,6 @@ function progress(percent, $element,skill) {
     var progressBarWidth = percent * $element.width() / 100;
     $element.find('div').delay(basicAnimationTime*1.5).animate({ width: progressBarWidth }, 1500).html(skill);
     $element.find('div').addClass('progressBar');
-    // skillDetails();
 }
 /*************************************************
 LOADING BAR FUNCTION
@@ -291,11 +234,9 @@ function loadingBar(){
   $('.loadingBar').animate({width: '100%'},basicAnimationTime*3);
 }
 
-
 /************************************************
 RESUME EXPAND FUNCTION
 ************************************************/
-
 $('#expand').on('click',function(){
   var text = $('#resume_content').html(); //pobiera tresc z sekcji resume_side
   var newDiv = $("<div id='expanded'>"+text+"<span id='closeBtn'><i class='fa fa-times'></i></span></div>");
@@ -306,8 +247,6 @@ $('#expand').on('click',function(){
   $('#closeBtn').on('click',function(){
     $('#expanded').fadeOut(2000);
   });
-
-
 });
 
 
