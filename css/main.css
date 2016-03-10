@@ -129,6 +129,9 @@ LOADING BAR
   width: 0%;
 }
 
+/**************************
+SCROLLBAR
+**************************/
 ::-webkit-scrollbar {
   width: 12px;
   /* for vertical scrollbars */
@@ -142,6 +145,45 @@ LOADING BAR
 
 ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.5);
+}
+
+/******************************
+SETTINGS DIV
+******************************/
+#settings {
+  width: 35px;
+  height: 35px;
+  padding-top: 5px;
+  border-radius: 0px 10px 10px 0px;
+  background-color: #eee;
+  border-color: #ccc #ccc #ccc transparent;
+  position: fixed;
+  left: 0;
+  top: 15%;
+  overflow: hidden;
+  font-size: 10px;
+  color: gray;
+  -webkit-transition: height 2s, width 2s;
+  -moz-transition: height 2s, width 2s;
+  -o-transition: height 2s, width 2s;
+  transition: height 2s, width 2s;
+}
+
+#normal {
+  border: 1px solid black;
+}
+
+#gray {
+  border: 1px solid black;
+}
+
+#settings:hover {
+  height: 260px;
+  width: 75px;
+}
+
+#settings img {
+  width: 25px;
 }
 
 #btnResume, #btnAbout, #btnPortfolio, #btnContact {
@@ -252,7 +294,6 @@ LOADING BAR
   color: #fff;
   text-align: right;
   line-height: 22px;
-  /* same as #progressBar height if we want text middle aligned */
   width: 0;
   background-color: #0099ff;
   padding-right: 10px;
@@ -270,7 +311,6 @@ LOADING BAR
   color: #fff;
   text-align: right;
   line-height: 22px;
-  /* same as #progressBar height if we want text middle aligned */
   width: 0;
   background-color: #0099ff;
   padding-right: 10px;
@@ -288,7 +328,6 @@ LOADING BAR
   color: #fff;
   text-align: right;
   line-height: 22px;
-  /* same as #progressBar height if we want text middle aligned */
   width: 0;
   background-color: #0099ff;
   padding-right: 10px;
@@ -306,20 +345,9 @@ LOADING BAR
   color: #fff;
   text-align: right;
   line-height: 22px;
-  /* same as #progressBar height if we want text middle aligned */
   width: 0;
   background-color: #0099ff;
   padding-right: 10px;
-}
-
-.main {
-  scrollbar-face-color: #000000;
-  scrollbar-shadow-color: #2D2C4D;
-  scrollbar-highlight-color: #7D7E94;
-  scrollbar-3dlight-color: #7D7E94;
-  scrollbar-darkshadow-color: #2D2C4D;
-  scrollbar-track-color: #7D7E94;
-  scrollbar-arrow-color: #C1C1D1;
 }
 
 #portfolio {

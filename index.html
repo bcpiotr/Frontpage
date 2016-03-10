@@ -17,7 +17,7 @@
 <body>
 <div class="container">
   <div class="logo">
-    <img src="./img/logo.png">
+    <img src="./img/logo.png" id="logo">
   </div>
   <div class="main">
     <div class="mosaic">
@@ -131,16 +131,15 @@ Vestibulum a tristique sem, in ultricies purus. Nunc risus magna, sollicitudin s
 
 <!-- CONTACT -->
 <div class="content" id="contact_main"><h2>CONTACT</h2>
-  <form action="sendform.php" method=post id=contact-form>
+  <form method=post action="http://www.htmlcodetutorial.com/cgi-bin/mycgi.pl" id=contact-form>
 					<div class=inner-border></div>
 					<input type=text name=name id=contact-name placeholder=Name size=20 />
-					<!-- <span class=error id=name-error>Invalid name</span> <br/> -->
+					<span class=error id=name-error></span> <br/>
 					<input type=text name=email id=contact-email placeholder=Email size=20 />
-					<!-- <span class=error id=email-error>Invalid email</span> -->
+					<span class=error id=email-error></span>
 					<textarea name=message id=contact-message cols=35 rows=8 placeholder="Message..."></textarea><br>
-					<input type=submit name=submit value=Submit id=contact-submit class="semi-dark semi-light-text"/>
-					<!-- <span class=error id=message-error>Type in a message first</span> -->
-					<!-- <span class=success id=message-success>I'll get back to you soon!</span> -->
+					<input type=submit name=submit value=Submit id=contact-submit class="semi-dark semi-light-text"/><br>
+					<span class=success id=message-success></span>
 	</form>
 </div>
 
@@ -168,7 +167,18 @@ Vestibulum a tristique sem, in ultricies purus. Nunc risus magna, sollicitudin s
 
 
 </div>
-<div class="loadingBar"><div>
-
+<div class="loadingBar"></div>
+<div id="settings"><center><i class="fa fa-cogs fa-3x"></i><br><br>
+<hr>
+super fast<br><i class="fa fa-hourglass-start settingBtnSpeed"id="superFast"></i><br>
+normal<br><i class="fa fa-hourglass-half settingBtnSpeed" id="normal"></i><br>
+very slow<br><i class="fa fa-hourglass-end settingBtnSpeed" id="verySlow"></i><br><hr>
+<img src="img/blue_pattern.png" class="settingBtnColor" id="various"><br>
+<img src="img/gray_scale.png" class="settingBtnColor" id="gray"><br>
+<img src="img/white_scale.png" class="settingBtnColor" id="white"><hr>
+WERSJA TESTOWA
+</center>
+</div>
 </body>
+
 </html>

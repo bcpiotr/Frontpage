@@ -7,9 +7,7 @@
   @include box-shadow;
   padding-left: 10px;
   z-index: 0;
-  // background-color: blue;
   display: none;
-  // border: 1px solid black;
 
 }
 
@@ -40,9 +38,7 @@
   top: 66px;
   @include box-shadow;
   z-index: 0;
-  // background-color: red;
   display: none;
-  // border: 1px solid black;
   overflow-y: scroll;
   padding-left: 5px;
 }
@@ -52,7 +48,6 @@
 
 #expand {
   position: fixed;
-  // border: 1px solid red;
   background-color: #E9F0F2;
   opacity: 0.2;
   top: 151px;
@@ -93,15 +88,13 @@
     height: 22px;
     font-size: 10px;
     margin-top: 5px;
-    // border: 1px solid #111;
-    // background-color: #292929;
 }
 
 #progressBarHTML div {
     height: 100%;
     color: #fff;
     text-align: right;
-    line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+    line-height: 22px;
     width: 0;
     background-color: #0099ff;
     padding-right: 10px;
@@ -113,14 +106,13 @@
     height: 22px;
     font-size: 10px;
     margin-top: 5px;
-    // border: 1px solid #111;
-    // background-color: #292929;
+
 }
 #progressBarCSS div {
     height: 100%;
     color: #fff;
     text-align: right;
-    line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+    line-height: 22px;
     width: 0;
     background-color: #0099ff;
     padding-right: 10px;
@@ -131,14 +123,13 @@
     height: 22px;
     font-size: 10px;
     margin-top: 5px;
-    // border: 1px solid #111;
-    // background-color: #292929;
 }
+
 #progressBarJS div {
     height: 100%;
     color: #fff;
     text-align: right;
-    line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+    line-height: 22px;
     width: 0;
     background-color: #0099ff;
     padding-right: 10px;
@@ -149,25 +140,13 @@
     height: 22px;
     font-size: 10px;
     margin-top: 5px;
-    // border: 1px solid #111;
-    // background-color: #292929;
 }
 #progressBarPS div {
     height: 100%;
     color: #fff;
     text-align: right;
-    line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+    line-height: 22px;
     width: 0;
     background-color: #0099ff;
     padding-right: 10px;
-}
-
-.main {
-    scrollbar-face-color: #000000;
-    scrollbar-shadow-color: #2D2C4D;
-    scrollbar-highlight-color:#7D7E94;
-    scrollbar-3dlight-color: #7D7E94;
-    scrollbar-darkshadow-color: #2D2C4D;
-    scrollbar-track-color: #7D7E94;
-    scrollbar-arrow-color: #C1C1D1;
 }

@@ -1,16 +1,16 @@
 $(function(){
   var panel = $('.panel');
   var main = $('.main');
-  var basicAnimationTime = 1000; //okresla wyjsciowy czas trwania animacji
+  var basicAnimationTime = 1500; //okresla wyjsciowy czas trwania animacji
 
-  colorsArray = ["#FFFFFF"]; //tablica kolorow wykrozystywanych do animacji mozaiki, umozliwia ustawienie wiele kolorow mozaiki
+  var colorsArray = ["#FFFFFF"]; //tablica kolorow wykrozystywanych do animacji mozaiki, umozliwia ustawienie wiele kolorow mozaiki
 
 
 /***************************
 WYWOLYWANIE FUNKCJI PO OTWARCIU STRONY
 **************************/
 setButtons();
-loadingBar();
+loadingBar(basicAnimationTime/2);
 
 setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
  mozaicHide();
@@ -24,9 +24,10 @@ function mozaicShow(){
   panel.each(function(index){
     $(this).css('z-index', '1');
     var delayTime = Math.floor((Math.random() * basicAnimationTime) + 100);
+    var colors = Math.floor((Math.random() * colorsArray.length) + 0);
     if (index < (panel.length-4)) {
       $(this).delay(delayTime).animate({
-        backgroundColor: 'white',
+        backgroundColor: colorsArray[colors],
       },function(){
       });
     }
@@ -108,6 +109,7 @@ AKCJE BUTTONOW - ONCLICK
 ***************************************/
 $('div[id^="btn"]').on('click',function(){
   var btnId = $(this).attr('id');
+  var clickedBtn = $(this); //wykorzystywany do ustawiania klasy aktiv na kliknietym btn
 
   if ($(this).hasClass('activeBtn')) { //sprawdza czy button nie jest aktywny i ew. blokuje klikniecie
     console.log('brejk!');
@@ -115,7 +117,7 @@ $('div[id^="btn"]').on('click',function(){
   }
 
   mozaicShow(); //pokazuje mozaike
-  loadingBar(); //uruchamia loadingBar'a
+  loadingBar(basicAnimationTime); //uruchamia loadingBar'a
 
   setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
    contentHide();
@@ -135,10 +137,12 @@ $('div[id^="btn"]').on('click',function(){
      contentShow(portfolio_main,portfolio_side);
      slider();
      generatePortfolio();
+     $('.bx-controls-direction').addClass('content');
    }
 
    else if (btnId === 'btnContact') {
      contentShow(contact_main,contact_side);
+     formValidation();
    }
 
  }, basicAnimationTime*1.5);
@@ -150,8 +154,14 @@ $('div[id^="btn"]').on('click',function(){
 
   $('div[id^="btn"]').css('backgroundColor', '#737778'); //nadaje wszystkim btn nieaktywny kolor
   $(this).css('backgroundColor', '#E9F0F2'); //nadaje kliknietemu kolor aktywny
-  $('div[id^="btn"]').removeClass('activeBtn'); //usuwa wszystkim buttonom klase aktiv
-  $(this).addClass('activeBtn'); //nadaje klase aktiv kliknietemu butonowi
+  $('div[id^="btn"]').addClass('activeBtn'); //nadaje wszystkim kalse aktiv
+  setTimeout(function() {   //po pelnym zaladowaniu tresci chowa mozaike
+  $('div[id^="btn"]').removeClass('activeBtn');//usuwa wszystkim buttonom klase aktiv
+  clickedBtn.addClass('activeBtn'); //nadaje klase aktiv kliknietemu butonowi
+}, basicAnimationTime*3);
+
+
+
 
 });
 
@@ -166,7 +176,7 @@ $('div[id^="btn"]').on('mouseover', function(){
 })
 $('div[id^="btn"]').on('mouseout', function(){
   if (!$(this).hasClass('activeBtn')) {  //sprawdza czy button ma klase active, jak nie, to go podswietla
-    $(this).css('backgroundColor', '#737778')
+    $(this).css('backgroundColor', '#737778');
   }
 })
 
@@ -229,9 +239,9 @@ function progress(percent, $element,skill) {
 /*************************************************
 LOADING BAR FUNCTION
 ************************************************/
-function loadingBar(){
+function loadingBar(time){
   $('.loadingBar').css('width','0%');
-  $('.loadingBar').animate({width: '100%'},basicAnimationTime*3);
+  $('.loadingBar').animate({width: '100%'},time*3);
 }
 
 /************************************************
@@ -250,7 +260,114 @@ $('#expand').on('click',function(){
 });
 
 
+/*********************************************
+FORM VALIDATION FUNCTION
+*********************************************/
+function formValidation(){
+  $( '#contact-form' ).submit(function( event ) {
+    var name = $('#contact-name').val();
+    var email = $('#contact-email').val();
+    var message = $('#contact-message').val();
+    var error = 0;
 
+  if (name.length <= 0) {
+    $('#name-error').html('<i class="fa fa-exclamation-triangle" style="color:red"></i>');
+    event.preventDefault();
+    error = 1;
+  }
+  else {
+    $('#name-error').html('');
+    // error = 0;
+  }
+
+  if(email.indexOf('@') === -1){
+    $('#email-error').html('<i class="fa fa-exclamation-triangle" style="color:red"></i>');
+    event.preventDefault();
+    error = 1;
+  }
+  else {
+    $('#email-error').html('');
+    // error = 0;
+  }
+
+  if(message.length <= 0) {
+    $('#contact-message').attr('placeholder','Are You sure?').css('backgroundColor','#737778');
+    event.preventDefault();
+    error = 1;
+  }
+  else {
+    $('#contact-message').css('backgroundColor','white');
+    // error = 0;
+  }
+
+  if (error === 0) {
+    $('#message-success').html("I'll get back to you as soon as possible!").css('color','green');
+  }
+  else {
+    event.preventDefault();
+  }
+
+});
+}
+
+/*******************************
+PRZYSPIESZENIE animacji
+*******************************/
+$('#logo').on('click',function(){
+  basicAnimationTime = 500;
+  console.log(basicAnimationTime);
+})
+$('.settingBtnSpeed').on('click',function(){
+  var selectedSpeed = $(this).attr('id');
+  switch (selectedSpeed) {
+    case 'superFast':
+    basicAnimationTime = 500;
+    break;
+    case 'normal':
+    basicAnimationTime = 1500;
+    break;
+    case 'verySlow':
+    basicAnimationTime = 3000;
+    break;
+    // case 'various':
+    // colorsArray = ['red','blue','green'];
+    // break;
+    // case 'gray':
+    // colorsArray = ['#d3d3d3','#bdbdbd','#a8a8a8','#939393','#7e7e7e','#696969','#545454'];
+    // break;
+    // case 'white':
+    // colorsArray = ['#FFFFFF'];
+    // break;
+  }
+  $('.settingBtnSpeed').each(function(index){
+    $(this).css('border','none');
+  });
+  $(this).css('border','1px solid black');
+})
+
+$('.settingBtnColor').on('click',function(){
+  var selectedColor = $(this).attr('id');
+  switch (selectedColor) {
+    case 'various':
+    colorsArray = ['#3A3E5B','#191A2D','#313550','#484A69','#717895','#8E93B0','#646986'];
+    // $('body').css('backgroundImage','url("img/various_pattern.jpg")');
+    $('body').css('backgroundImage','url("img/background2.jpg")');
+    break;
+    case 'gray':
+    colorsArray = ['#EBEBEB','#ECECEC','#EDEDED','#EEEEEE','#EFEFEF','#F0F0F0','#F1F1F1'];
+    $('body').css('backgroundImage','url("img/background.png")');
+    break;
+    case 'white':
+    colorsArray = ['#FFFFFF'];
+    $('body').css('backgroundImage','url("img/white_pattern.jpg")');
+    // $('body').css('backgroundColor','#f2f2f2');
+    break;
+  }
+  $('.settingBtnColor').each(function(index){
+    $(this).css('border','none');
+  });
+  $(this).css('border','1px solid black');
+})
 
 
 
