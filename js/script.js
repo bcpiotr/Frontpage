@@ -1,8 +1,7 @@
 $(function(){
   var panel = $('.panel');
   var main = $('.main');
-  // var maxCoverUpTime = 1000;
-  var basicAnimationTime = 500;
+  var basicAnimationTime = 1000;
 
   colorsArray = ["#FFFFFF"]; //tablica kolorow wykrozystywanych do animacji moza
 
@@ -16,7 +15,7 @@ loadingBar();
 // mozaicAnimation();
 setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
  mozaicHide();
-}, 1000);
+}, basicAnimationTime/2);
 
 
 /*********************************
@@ -25,7 +24,7 @@ FUNCTION MozaicShow
 function mozaicShow(){
   panel.each(function(index){
     $(this).css('z-index', '1');
-    var delayTime = Math.floor((Math.random() * 2000) + 500);
+    var delayTime = Math.floor((Math.random() * basicAnimationTime) + 100);
     if (index >= (panel.length-4)) {
         }
         else {
@@ -44,7 +43,7 @@ FUNCTION MozaicHide
 function mozaicHide(){
 
   panel.each(function(index){
-    var delayTime = Math.floor((Math.random() * 2000) + 500);
+    var delayTime = Math.floor((Math.random() * basicAnimationTime) + 100);
     if (index >= (panel.length-4)) {
         }
         else {
@@ -123,21 +122,23 @@ function setButtons(){
 /****************************************
 AKCJE BUTTONOW - ONCLICK
 ***************************************/
-$('div[id^="btn"]:not(.activeBtn)').on('click',function(){
+$('div[id^="btn"]').on('click',function(){
   // mozaicAnimation("white");
   // mozaicAnimationCoverUp();
   // contentHide();
+
+  if ($(this).hasClass('activeBtn')) { //blokuje opcje klikniecia w aktywny button
+    console.log('brejk!');
+    return 0;
+    // break;
+  }
+
   mozaicShow();
   loadingBar();
 
-  // if ($(this).hasClass('activeBtn')) {
-  //   console.log('brejk!');
-  //   return 0;
-  //   // break;
-  // }
+
 
   setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
-    console.log('settime');
    contentHide();
    if (btnId === "btnAbout") {
      contentShow(about_main,about_side);
@@ -168,11 +169,11 @@ $('div[id^="btn"]:not(.activeBtn)').on('click',function(){
      contentShow(contact_main,contact_side);
        // fadeInContent(contact);
    }
- }, 3000);
+ }, basicAnimationTime*1.5);
 
  setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
   mozaicHide();
-}, 5000);
+}, basicAnimationTime*1.5);
 
 
 
@@ -233,8 +234,13 @@ function generatePortfolio(){
       $('#port_full').fadeIn(2000);
     })
 
-    // main.css('backgroundImage', 'url(img/portfolio/'+imgSrc+')');
+    // main.animate({backgroundImage: 'url('+imgSrc+')'},function(){
+    //
+    // });
+    // main.css('backgroundImage', 'url('+imgSrc+')');
     // panel.css('backgroundColor','transparent');
+
+
 
 
     //
@@ -273,7 +279,7 @@ FUNCKJA ANIMUJACA PROGRESS bary
 *****************************************************/
 function progress(percent, $element,skill) {
     var progressBarWidth = percent * $element.width() / 100;
-    $element.find('div').delay(4000).animate({ width: progressBarWidth }, 1500).html(skill);
+    $element.find('div').delay(basicAnimationTime*1.5).animate({ width: progressBarWidth }, 1500).html(skill);
     $element.find('div').addClass('progressBar');
     // skillDetails();
 }
@@ -282,7 +288,7 @@ LOADING BAR FUNCTION
 ************************************************/
 function loadingBar(){
   $('.loadingBar').css('width','0%');
-  $('.loadingBar').animate({width: '100%'},basicAnimationTime*2);
+  $('.loadingBar').animate({width: '100%'},basicAnimationTime*3);
 }
 
 
