@@ -1,26 +1,35 @@
 $(function(){
+/*********************************
+VARIABLES
+*********************************/
   var panel = $('.panel');
   var main = $('.main');
   var basicAnimationTime = 1500; //okresla wyjsciowy czas trwania animacji
-
   var colorsArray = ["#FFFFFF"]; //tablica kolorow wykrozystywanych do animacji mozaiki, umozliwia ustawienie wiele kolorow mozaiki
-
+  var portfolioArray = [
+    ['#E9F0F2', 'http://github.com', 'http://rollpack.pl', 'rwd flex etv', 'Description...<br>lorem ipsume asdfasff', "img/portfolio/portfBckg1.png"],
+    [1, 'http://github.com', 'http://google.pl', 'search best top', 'serch the webasdasdasd sdaf sdg sg sdag sghfgsdagf sdaf sadf sadf sdfsad fsda fasdf ', "img/portfolio/portfBckg2.png"],
+    [1, 'http://github.com', 'http://onet.pl', 'klamstwa manipulacje', 'propagadna decsrciption', "img/portfolio/portfBckg3.png"],
+    [1, 2, 3, 4, 5, "img/portfolio/portfBckg4.png"],
+    [1, 2, 3, 4, 5, "img/portfolio/portfBckg5.png"]
+  ];
 
 /***************************
 WYWOLYWANIE FUNKCJI PO OTWARCIU STRONY
 **************************/
-setButtons();
-loadingBar(basicAnimationTime/2);
+setButtons(); //ustawia buttony na ostatnich 4 panelach mozaiki
+loadingBar(basicAnimationTime/2); //pierwsze wywolanie loadingbara jest krotsze dwukrotnie
 
 setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
- mozaicHide();
+ mozaicHide(basicAnimationTime);
 }, basicAnimationTime/2);
+
 
 
 /********************************************
 FUNCTION MozaicShow - przykrywa tresc mozaika
 ********************************************/
-function mozaicShow(){
+function mozaicShow(time){
   panel.each(function(index){
     $(this).css('z-index', '1');
     var delayTime = Math.floor((Math.random() * basicAnimationTime) + 100);
@@ -38,7 +47,7 @@ function mozaicShow(){
 /*********************************************
 FUNCTION MozaicHide - chowa mozaike pod tresc
 *********************************************/
-function mozaicHide(){
+function mozaicHide(time){
   panel.each(function(index){
     var delayTime = Math.floor((Math.random() * basicAnimationTime) + 100);
     if (index < (panel.length-4)) {
@@ -64,7 +73,6 @@ FUNCTION contentHide
 *******************************/
 function contentHide(){
   $('.content').fadeOut(100,function(){
-
   });
 }
 
@@ -81,11 +89,14 @@ FUNCTION PANEL RESIZE
 //Przy resize zmienia w css height i width panelu
   $(window).on('resize',function(){
     width = main.width()/10;
-    panel.css("height", width, "width", width);
+    panel.css("height", width);
+    panel.css("width", width);
   })
 
 /*****************************************
-FUNCTION SET BUTTONS - ustawia buttony na ostatnich panelach
+FUNCTION SET BUTTONS - ustawia buttony na ostatnich 4 panelach
+przy robieniu RWD bedzie mozna dowolnie usuwac/dodawac panele
+a buttony beda sie ustawiac na ostatnich 4-ech
 ****************************************/
 function setButtons(){
   panel.last().attr('id', 'btnContact');
@@ -101,6 +112,14 @@ function setButtons(){
   panel.eq(-4).css('backgroundColor', '#E9F0F2'); //przy pierwszym wywoalniu ustawia jasny kolor dla about
   panel.eq(-4).addClass('activeBtn'); //przy pierwszym wywolaniu ustawia klase activ na pierwszym buttonie
   panel.eq(-4).html('<i class="fa fa-user fa-2x"></i>');
+
+
+  ///blokuje klikniecie przy otwarciu strony
+    $('div[id^="btn"]').addClass('activeBtn');
+    setTimeout(function() {
+     $('div[id^="btn"]').removeClass('activeBtn');
+   }, basicAnimationTime*1.5);
+
 }
 
 
@@ -112,14 +131,14 @@ $('div[id^="btn"]').on('click',function(){
   var clickedBtn = $(this); //wykorzystywany do ustawiania klasy aktiv na kliknietym btn
 
   if ($(this).hasClass('activeBtn')) { //sprawdza czy button nie jest aktywny i ew. blokuje klikniecie
-    console.log('brejk!');
     return 0;
   }
 
-  mozaicShow(); //pokazuje mozaike
+  mozaicShow(basicAnimationTime); //pokazuje mozaike
   loadingBar(basicAnimationTime); //uruchamia loadingBar'a
 
-  setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
+  setTimeout(function() {   //gdy mozaika zakryje tresc, podmienia odpowiednia tresc dla klinietego btn
+   main.css('backgroundImage','none'); //resetuje tlo main, gdy wczesniej bylo ogladane portfolio
    contentHide();
    if (btnId === "btnAbout") {
      contentShow(about_main,about_side);
@@ -135,9 +154,7 @@ $('div[id^="btn"]').on('click',function(){
 
    else if (btnId === 'btnPortfolio') {
      contentShow(portfolio_main,portfolio_side);
-     slider();
-     generatePortfolio();
-     $('.bx-controls-direction').addClass('content');
+     showPortfolio(1000,0);
    }
 
    else if (btnId === 'btnContact') {
@@ -148,20 +165,17 @@ $('div[id^="btn"]').on('click',function(){
  }, basicAnimationTime*1.5);
 
  setTimeout(function() {   //po pelnym zaladowaniu tresci chowa mozaike
-  mozaicHide();
+  mozaicHide(basicAnimationTime);
 }, basicAnimationTime*1.5);
 
 
-  $('div[id^="btn"]').css('backgroundColor', '#737778'); //nadaje wszystkim btn nieaktywny kolor
+  $('div[id^="btn"]').css('backgroundColor', '#737778')
+  .addClass('activeBtn'); //nadaje wszystkim btn nieaktywny kolor i klase activeBtn-blokuje klikniecie
   $(this).css('backgroundColor', '#E9F0F2'); //nadaje kliknietemu kolor aktywny
-  $('div[id^="btn"]').addClass('activeBtn'); //nadaje wszystkim kalse aktiv
   setTimeout(function() {   //po pelnym zaladowaniu tresci chowa mozaike
   $('div[id^="btn"]').removeClass('activeBtn');//usuwa wszystkim buttonom klase aktiv
   clickedBtn.addClass('activeBtn'); //nadaje klase aktiv kliknietemu butonowi
 }, basicAnimationTime*3);
-
-
-
 
 });
 
@@ -175,7 +189,7 @@ $('div[id^="btn"]').on('mouseover', function(){
 
 })
 $('div[id^="btn"]').on('mouseout', function(){
-  if (!$(this).hasClass('activeBtn')) {  //sprawdza czy button ma klase active, jak nie, to go podswietla
+  if (!$(this).hasClass('activeBtn')) {  //sprawdza czy button ma klase active, jak nie, to nadaje mu nieaktywny kolor
     $(this).css('backgroundColor', '#737778');
   }
 })
@@ -186,46 +200,37 @@ $('div[id^="btn"]').on('mouseout', function(){
 PORTFOLIO SCRIPTS
 **************************************/
 
-/**************************************
-FUNKCJA GENERUJĄCA PORTFOLIO
-**************************************/
-function generatePortfolio(){
-  var images = $('#portfolio_side').find('img');
-  var details = $('#portfolio_main').find('.portfolio_details');
-
-  images.on('click',function(){
-    var imgSrc = $(this).data('src');
-    var tags = $(this).data('tags');
-    var gitlink = $(this).data('gitlink');
-    var ownlink = $(this).data('ownlink');
-    var opis = $(this).data('opis');
-
-    $('#port_full').fadeOut(2000,function(){
-      $('#port_full').attr('src', imgSrc);
-      $('#port_full').fadeIn(2000);
-    })
-
-    $('#port_tags').html('<i class="fa fa-tag"></i> '+ tags);
-    $('#port_git').html('<a href='+gitlink+'><i class="fa fa-github"></i></a>');
-    $('#port_link').html('<a href='+ownlink+' target=_blank><i class="fa fa-link"></i></a>');
-    $('#port_opis').html('<i class="fa fa-pencil"> '+opis+'</i>')
-  });
-
-
-}
-
 /*****************************************************
-SLIDER
-******************************************************/
-function slider(){
-  $(document).ready(function(){
-  $('.slider1').bxSlider({
-    slideWidth: 200,
-    minSlides: 4,
-    maxSlides: 6,
-    slideMargin: 10
+FUNCKJA SLIDER PORTFOLIO
+*****************************************************/
+  var index = 0;
+  var counterMarks = $('#portfolio_side').find('i[class*="mark"]'); //kwadraty-liczniki
+
+  var color;
+
+function showPortfolio(time,index){
+  counterMarks.on('click',function(){
+    var id = $(this).attr('id');
+
+        mozaicShow(basicAnimationTime*1.2);
+        loadingBar(basicAnimationTime*1.2);
+
+        counterMarks.each(function(index){ //odznacza wszystkie kwadraty, a potem zaznacza klikniety
+          $(this).removeClass('fa-square');
+          $(this).addClass('fa-square-o');
+        });
+
+        setTimeout(function() {
+        $('#port_opis').css('backgroundColor', portfolioArray[id][0])
+        .html('<i class="fa fa-pencil"> '+portfolioArray[id][4]+'</i>'); //zmienia kolor pola na pobrany z tablicy i wrzuca opis z tablicy
+        $('#port_tags').html('<i class="fa fa-tag"></i> '+ portfolioArray[id][3]+'a');
+        $('#port_git').html('<a href='+portfolioArray[id][2]+'><i class="fa fa-github"></i></a>');
+        $('#port_link').html('<a href='+portfolioArray[id][3]+' target=_blank><i class="fa fa-link"></i></a>');
+        main.css('backgroundImage','url('+portfolioArray[id][5]+')');
+        mozaicHide(basicAnimationTime*1.2);
+      }, basicAnimationTime*1.5);
+        $(this).toggleClass('fa-square fa-square-o');
   });
-});
 };
 
 /****************************************************
@@ -252,13 +257,11 @@ $('#expand').on('click',function(){
   var newDiv = $("<div id='expanded'>"+text+"<span id='closeBtn'><i class='fa fa-times'></i></span></div>");
   newDiv.appendTo(document.body);
   $('#expanded').fadeIn(2000);
-  console.log(text);
 
   $('#closeBtn').on('click',function(){
     $('#expanded').fadeOut(2000);
   });
 });
-
 
 /*********************************************
 FORM VALIDATION FUNCTION
@@ -277,7 +280,6 @@ function formValidation(){
   }
   else {
     $('#name-error').html('');
-    // error = 0;
   }
 
   if(email.indexOf('@') === -1){
@@ -287,7 +289,6 @@ function formValidation(){
   }
   else {
     $('#email-error').html('');
-    // error = 0;
   }
 
   if(message.length <= 0) {
@@ -297,7 +298,6 @@ function formValidation(){
   }
   else {
     $('#contact-message').css('backgroundColor','white');
-    // error = 0;
   }
 
   if (error === 0) {
@@ -306,22 +306,17 @@ function formValidation(){
   else {
     event.preventDefault();
   }
-
 });
 }
 
 /*******************************
 PRZYSPIESZENIE animacji
 *******************************/
-$('#logo').on('click',function(){
-  basicAnimationTime = 500;
-  console.log(basicAnimationTime);
-})
 $('.settingBtnSpeed').on('click',function(){
   var selectedSpeed = $(this).attr('id');
   switch (selectedSpeed) {
     case 'superFast':
-    basicAnimationTime = 500;
+    basicAnimationTime = 750;
     break;
     case 'normal':
     basicAnimationTime = 1500;
@@ -329,15 +324,6 @@ $('.settingBtnSpeed').on('click',function(){
     case 'verySlow':
     basicAnimationTime = 3000;
     break;
-    // case 'various':
-    // colorsArray = ['red','blue','green'];
-    // break;
-    // case 'gray':
-    // colorsArray = ['#d3d3d3','#bdbdbd','#a8a8a8','#939393','#7e7e7e','#696969','#545454'];
-    // break;
-    // case 'white':
-    // colorsArray = ['#FFFFFF'];
-    // break;
   }
   $('.settingBtnSpeed').each(function(index){
     $(this).css('border','none');
@@ -345,12 +331,14 @@ $('.settingBtnSpeed').on('click',function(){
   $(this).css('border','1px solid black');
 })
 
+/***********************************************
+ZMIANA KOLOROW
+***********************************************/
 $('.settingBtnColor').on('click',function(){
   var selectedColor = $(this).attr('id');
   switch (selectedColor) {
     case 'various':
     colorsArray = ['#3A3E5B','#191A2D','#313550','#484A69','#717895','#8E93B0','#646986'];
-    // $('body').css('backgroundImage','url("img/various_pattern.jpg")');
     $('body').css('backgroundImage','url("img/background2.jpg")');
     break;
     case 'gray':
@@ -360,7 +348,6 @@ $('.settingBtnColor').on('click',function(){
     case 'white':
     colorsArray = ['#FFFFFF'];
     $('body').css('backgroundImage','url("img/white_pattern.jpg")');
-    // $('body').css('backgroundColor','#f2f2f2');
     break;
   }
   $('.settingBtnColor').each(function(index){
@@ -368,7 +355,6 @@ $('.settingBtnColor').on('click',function(){
   });
   $(this).css('border','1px solid black');
 })
-
 
 
 });
