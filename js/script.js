@@ -18,7 +18,7 @@ VARIABLES
 WYWOLYWANIE FUNKCJI PO OTWARCIU STRONY
 **************************/
 setButtons(); //ustawia buttony na ostatnich 4 panelach mozaiki
-loadingBar(basicAnimationTime/2); //pierwsze wywolanie loadingbara jest krotsze dwukrotnie
+loadingBar(basicAnimationTime*0.8); //pierwsze wywolanie loadingbara jest krotsze dwukrotnie
 
 setTimeout(function() {   //po pelnym zaslonieciu wywoluje funckje odrywania tresci
  mozaicHide(basicAnimationTime);
@@ -76,6 +76,13 @@ function contentHide(){
   });
 }
 
+/*************************************************
+LOADING BAR FUNCTION
+************************************************/
+function loadingBar(time){
+  $('.loadingBar').css('width','0%');
+  $('.loadingBar').animate({width: '100%'},time*2.5);
+}
 
 /*************************
 FUNCTION PANEL RESIZE
@@ -118,10 +125,9 @@ function setButtons(){
     $('div[id^="btn"]').addClass('activeBtn');
     setTimeout(function() {
      $('div[id^="btn"]').not("#btnAbout").removeClass('activeBtn'); //usuwa klase aktiv wszystkim poza jednym-about
-   }, basicAnimationTime*1.4);
+   }, basicAnimationTime*2);
 
 }
-
 
 /****************************************
 AKCJE BUTTONOW - ONCLICK
@@ -133,8 +139,11 @@ $('div[id^="btn"]').on('click',function(){
   if ($(this).hasClass('activeBtn')) { //sprawdza czy button nie jest aktywny i ew. blokuje klikniecie
     return 0;
   }
+  loadingBar(basicAnimationTime*1.2);
 
-  animationBlock(1,1); //sprawdza czy nie sa wylaczone animacje
+  if (basicAnimationTime !== 0) { //sprawdza czy animacje nie sa wylaczone
+    mozaicShow(basicAnimationTime);
+  }
 
   setTimeout(function() {   //gdy mozaika zakryje tresc, podmienia odpowiednia tresc dla klinietego btn
    main.css('backgroundImage','none'); //resetuje tlo main, gdy wczesniej bylo ogladane portfolio
@@ -142,8 +151,6 @@ $('div[id^="btn"]').on('click',function(){
    if (btnId === "btnAbout") {
      contentShow(about_main,about_side);
    }
-
-
 
    else if (btnId === 'btnResume') {
      contentShow(resume_main,resume_side);
@@ -155,7 +162,7 @@ $('div[id^="btn"]').on('click',function(){
 
    else if (btnId === 'btnPortfolio') {
      contentShow(portfolio_main,portfolio_side);
-     showPortfolio(1000,0);
+     showPortfolio(basicAnimationTime,0);
      $( "#0" ).trigger( "click" ); //po przejsciu do portfolio uruchamia event z id 0
    }
 
@@ -170,25 +177,17 @@ $('div[id^="btn"]').on('click',function(){
   mozaicHide(basicAnimationTime);
 }, basicAnimationTime*1.5);
 
-
   $('div[id^="btn"]').css('backgroundColor', '#737778')
-  .addClass('activeBtn'); //nadaje wszystkim btn nieaktywny kolor i klase activeBtn-blokuje klikniecie
+    .addClass('activeBtn'); //nadaje wszystkim btn nieaktywny kolor i klase activeBtn-blokuje klikniecie
   $(this).css('backgroundColor', '#E9F0F2'); //nadaje kliknietemu kolor aktywny
+
   setTimeout(function() {   //po pelnym zaladowaniu tresci chowa mozaike
   $('div[id^="btn"]').removeClass('activeBtn');//usuwa wszystkim buttonom klase aktiv
   clickedBtn.addClass('activeBtn'); //nadaje klase aktiv kliknietemu butonowi
-}, basicAnimationTime*2.8);
+}, basicAnimationTime*4);
 
 });
 
-
-///ANIMATION block
-function animationBlock(time1,time2){
-  if (basicAnimationTime !== 0) { //sprawdza czy animacje nie sa wylaczone
-    mozaicShow(basicAnimationTime*time1);
-    loadingBar(basicAnimationTime*time2);
-  }
-}
 /***********************************
 AKCJE BUTTONOW - MOUSEOVER/MOUSEOUT
 ***********************************/
@@ -221,14 +220,15 @@ FUNCKJA SLIDER PORTFOLIO
 function showPortfolio(time,index){
   counterMarks.on('click',function(e){
     var id = $(this).attr('id');
-
       if(e.isTrigger){ //sprawdza czy event jest wywoalny przez czlowieka czy trigger - przy pierwszym otwarciu portfolio
-        loadingBar(basicAnimationTime*1.2);
         main.css('backgroundImage','url('+portfolioArray[id][5]+')');
       }
-      else if (basicAnimationTime !== 0){ //sprawdza czy nie sa wylaczone animacje
-        mozaicShow(basicAnimationTime*1.2);
-        loadingBar(basicAnimationTime*0.9);
+      else {
+        loadingBar(basicAnimationTime*1.2);
+        console.log('asdasdasd');
+        if (basicAnimationTime !== 0){ //sprawdza czy nie sa wylaczone animacje
+          mozaicShow(basicAnimationTime*1.2);
+        }
       }
 
         counterMarks.each(function(index){ //odznacza wszystkie kwadraty, a potem zaznacza klikniety
@@ -256,13 +256,7 @@ function progress(percent, $element,skill) {
     $element.find('div').delay(basicAnimationTime*1.5).animate({ width: progressBarWidth }, 1500).html(skill);
     $element.find('div').addClass('progressBar');
 }
-/*************************************************
-LOADING BAR FUNCTION
-************************************************/
-function loadingBar(time){
-  $('.loadingBar').css('width','0%');
-  $('.loadingBar').animate({width: '100%'},time*3);
-}
+
 
 /************************************************
 RESUME EXPAND FUNCTION
@@ -332,9 +326,11 @@ $('.settingBtnSpeed').on('click',function(){
   switch (selectedSpeed) {
     case 'none':
     basicAnimationTime = 0;
+    $('.loadingBar').css('display','none');
     break;
     case 'normal':
     basicAnimationTime = 1200;
+    $('.loadingBar').css('display','block');
     break;
     case 'verySlow':
     basicAnimationTime = 3000;
@@ -370,6 +366,5 @@ $('.settingBtnColor').on('click',function(){
   });
   $(this).css('border','1px solid black');
 })
-
 
 });
