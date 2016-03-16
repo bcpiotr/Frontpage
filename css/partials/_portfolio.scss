@@ -39,6 +39,7 @@
   // float: left;
   // padding-left: 10px;
   text-align: center;
+
   // border: 1px solid black;
 }
   #full_image {
@@ -47,21 +48,32 @@
 
   }
   #port_opis {
+    background-color: rgba(4, 3, 0, 0.66);
+    color: #CCC3C3;
     display: block;
     // float: left;
     width: 30%;
-    max-height: 17px;
+    max-height: 250px;
     overflow: hidden;
-    border: 1px dotted black;
-    -webkit-transition: max-height 3s linear;
-     -moz-transition: max-height 3s linear;
-       -o-transition: max-height 3s linear;
-          transition: max-height 3s linear;
+    -webkit-animation: mymove 6s;
+    -webkit-animation-iteration-count: 1;
   }
 
-  #port_opis:hover {
-    max-height: 400px;
+  @keyframes mymove {
+    from {max-height: 17px;}
+    to {max-height: 250px;}
   }
+
+  #port_opis p {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+
+  // #port_opis:hover {
+  //   max-height: 400px;
+  // }
+
   #port_git, #port_link, #port_tags {
     display: inline-block;
     // border: 1px dotted black;
@@ -73,6 +85,7 @@
   }
     #port_tags {
       font-size: 10px;
+      max-width: 100px;
     }
 #portfolio_side {
   position: absolute;

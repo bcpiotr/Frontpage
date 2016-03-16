@@ -4,14 +4,14 @@ VARIABLES
 *********************************/
   var panel = $('.panel');
   var main = $('.main');
-  var basicAnimationTime = 1500; //okresla wyjsciowy czas trwania animacji
+  var basicAnimationTime = 1200; //okresla wyjsciowy czas trwania animacji
   var colorsArray = ["#FFFFFF"]; //tablica kolorow wykrozystywanych do animacji mozaiki, umozliwia ustawienie wiele kolorow mozaiki
   var portfolioArray = [
-    ['#E9F0F2', 'http://github.com', 'http://rollpack.pl', 'rwd flex etv', 'Description...<br>lorem ipsume asdfasff', "img/portfolio/portfBckg1.png"],
-    [1, 'http://github.com', 'http://google.pl', 'search best top', 'serch the webasdasdasd sdaf sdg sg sdag sghfgsdagf sdaf sadf sadf sdfsad fsda fasdf ', "img/portfolio/portfBckg2.png"],
-    [1, 'http://github.com', 'http://onet.pl', 'klamstwa manipulacje', 'propagadna decsrciption', "img/portfolio/portfBckg3.png"],
-    [1, 2, 3, 4, 5, "img/portfolio/portfBckg4.png"],
-    [1, 2, 3, 4, 5, "img/portfolio/portfBckg5.png"]
+    [1, 'http://github.com', 'http://rollpack.pl', 'bootstrap RWD', 'Description...<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec ligula quis est euismod aliquet sed ac ex. ', "img/portfolio/rollpack.png"],
+    [2, 'http://github.com', 'http://google.pl', 'rwd flexbox onepage', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec ligula quis est euismod aliquet sed ac ex. Donec nec ligula quis est euismod aliquet sed ac ex.', "img/portfolio/portfBckg2.png"],
+    [3, 'http://github.com', 'http://google.pl', 'tag#1 tag#2 tag#3', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec ligula quis est euismod aliquet sed ac ex.', "img/portfolio/placeholder.png"],
+    [4, 'http://github.com', 'http://google.pl', 'tag#1 tag#2 tag#3', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec ligula quis est euismod aliquet sed ac ex.', "img/portfolio/placeholder.png"],
+    [5, 'http://github.com', 'http://google.pl', 'tag#1 tag#2 tag#3', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec ligula quis est euismod aliquet sed ac ex.', "img/portfolio/placeholder.png"]
   ];
 
 /***************************
@@ -117,8 +117,8 @@ function setButtons(){
   ///blokuje klikniecie przy otwarciu strony
     $('div[id^="btn"]').addClass('activeBtn');
     setTimeout(function() {
-     $('div[id^="btn"]').removeClass('activeBtn');
-   }, basicAnimationTime*1.5);
+     $('div[id^="btn"]').not("#btnAbout").removeClass('activeBtn'); //usuwa klase aktiv wszystkim poza jednym-about
+   }, basicAnimationTime*1.4);
 
 }
 
@@ -134,8 +134,7 @@ $('div[id^="btn"]').on('click',function(){
     return 0;
   }
 
-  mozaicShow(basicAnimationTime); //pokazuje mozaike
-  loadingBar(basicAnimationTime); //uruchamia loadingBar'a
+  animationBlock(1,1); //sprawdza czy nie sa wylaczone animacje
 
   setTimeout(function() {   //gdy mozaika zakryje tresc, podmienia odpowiednia tresc dla klinietego btn
    main.css('backgroundImage','none'); //resetuje tlo main, gdy wczesniej bylo ogladane portfolio
@@ -143,6 +142,8 @@ $('div[id^="btn"]').on('click',function(){
    if (btnId === "btnAbout") {
      contentShow(about_main,about_side);
    }
+
+
 
    else if (btnId === 'btnResume') {
      contentShow(resume_main,resume_side);
@@ -155,6 +156,7 @@ $('div[id^="btn"]').on('click',function(){
    else if (btnId === 'btnPortfolio') {
      contentShow(portfolio_main,portfolio_side);
      showPortfolio(1000,0);
+     $( "#0" ).trigger( "click" ); //po przejsciu do portfolio uruchamia event z id 0
    }
 
    else if (btnId === 'btnContact') {
@@ -175,10 +177,18 @@ $('div[id^="btn"]').on('click',function(){
   setTimeout(function() {   //po pelnym zaladowaniu tresci chowa mozaike
   $('div[id^="btn"]').removeClass('activeBtn');//usuwa wszystkim buttonom klase aktiv
   clickedBtn.addClass('activeBtn'); //nadaje klase aktiv kliknietemu butonowi
-}, basicAnimationTime*3);
+}, basicAnimationTime*2.8);
 
 });
 
+
+///ANIMATION block
+function animationBlock(time1,time2){
+  if (basicAnimationTime !== 0) { //sprawdza czy animacje nie sa wylaczone
+    mozaicShow(basicAnimationTime*time1);
+    loadingBar(basicAnimationTime*time2);
+  }
+}
 /***********************************
 AKCJE BUTTONOW - MOUSEOVER/MOUSEOUT
 ***********************************/
@@ -209,11 +219,17 @@ FUNCKJA SLIDER PORTFOLIO
   var color;
 
 function showPortfolio(time,index){
-  counterMarks.on('click',function(){
+  counterMarks.on('click',function(e){
     var id = $(this).attr('id');
 
-        mozaicShow(basicAnimationTime*1.2);
+      if(e.isTrigger){ //sprawdza czy event jest wywoalny przez czlowieka czy trigger - przy pierwszym otwarciu portfolio
         loadingBar(basicAnimationTime*1.2);
+        main.css('backgroundImage','url('+portfolioArray[id][5]+')');
+      }
+      else if (basicAnimationTime !== 0){ //sprawdza czy nie sa wylaczone animacje
+        mozaicShow(basicAnimationTime*1.2);
+        loadingBar(basicAnimationTime*0.9);
+      }
 
         counterMarks.each(function(index){ //odznacza wszystkie kwadraty, a potem zaznacza klikniety
           $(this).removeClass('fa-square');
@@ -221,14 +237,13 @@ function showPortfolio(time,index){
         });
 
         setTimeout(function() {
-        $('#port_opis').css('backgroundColor', portfolioArray[id][0])
-        .html('<i class="fa fa-pencil"> '+portfolioArray[id][4]+'</i>'); //zmienia kolor pola na pobrany z tablicy i wrzuca opis z tablicy
+        $('#port_opis').html('<p> '+portfolioArray[id][4]+'</p>'); //zmienia kolor pola na pobrany z tablicy i wrzuca opis z tablicy
         $('#port_tags').html('<i class="fa fa-tag"></i> '+ portfolioArray[id][3]+'a');
-        $('#port_git').html('<a href='+portfolioArray[id][2]+'><i class="fa fa-github"></i></a>');
+        $('#port_git').html('<a href='+portfolioArray[id][2]+' target=_blank><i class="fa fa-github"></i></a>');
         $('#port_link').html('<a href='+portfolioArray[id][3]+' target=_blank><i class="fa fa-link"></i></a>');
         main.css('backgroundImage','url('+portfolioArray[id][5]+')');
         mozaicHide(basicAnimationTime*1.2);
-      }, basicAnimationTime*1.5);
+      }, basicAnimationTime*1.3);
         $(this).toggleClass('fa-square fa-square-o');
   });
 };
@@ -256,10 +271,10 @@ $('#expand').on('click',function(){
   var text = $('#resume_content').html(); //pobiera tresc z sekcji resume_side
   var newDiv = $("<div id='expanded'>"+text+"<span id='closeBtn'><i class='fa fa-times'></i></span></div>");
   newDiv.appendTo(document.body);
-  $('#expanded').fadeIn(2000);
+  $('#expanded').fadeIn(basicAnimationTime);
 
   $('#closeBtn').on('click',function(){
-    $('#expanded').fadeOut(2000);
+    $('#expanded').fadeOut(basicAnimationTime);
   });
 });
 
@@ -315,11 +330,11 @@ PRZYSPIESZENIE animacji
 $('.settingBtnSpeed').on('click',function(){
   var selectedSpeed = $(this).attr('id');
   switch (selectedSpeed) {
-    case 'superFast':
-    basicAnimationTime = 750;
+    case 'none':
+    basicAnimationTime = 0;
     break;
     case 'normal':
-    basicAnimationTime = 1500;
+    basicAnimationTime = 1200;
     break;
     case 'verySlow':
     basicAnimationTime = 3000;

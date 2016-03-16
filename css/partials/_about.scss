@@ -2,7 +2,7 @@
 #about_main {
   position: absolute;
   width: 50%;
-  height: 75%;
+  height: 70%;
   top: 15px;
   left: 25px;
   @include box-shadow;
@@ -11,7 +11,10 @@
 }
 
     #about_main p {
-      color: red;
+      font-size: 12px;
+      // letter-spacing: 1px;
+      // word-spacing: 5px;
+      // line-height: 15px;
     }
 
     #about_main img {
@@ -40,4 +43,5 @@
     .socialMedia li {
       padding: 10px;
       color: $inactiveBtnColor;
+      font-size: 14px;
     }

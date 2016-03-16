@@ -15,6 +15,7 @@
   font-size: 12px;
   display: inline-block;
   line-height: 0px;
+  letter-spacing: 0;
 }
 
 #resume_main a {
@@ -23,6 +24,8 @@
 }
 
 #fullResumeLink {
+  letter-spacing: 0;
+  word-spacing: 0;
   border-top: 1px dashed #737778;
 }
 
@@ -43,7 +46,7 @@
   padding-left: 5px;
 }
   #resume_side p {
-    font-size: 12px;
+    font-size: 11px;
   }
 
 #expand {
