@@ -1,6 +1,6 @@
 #about_main {
   position: absolute;
-  width: 50%;
+  width: 65%;
   height: 70%;
   top: 15px;
   left: 25px;
@@ -13,6 +13,7 @@
 
 #about_main p {
   font-size: 12px;
+  line-height: 12px;
 }
 
 #about_main img {
@@ -24,7 +25,7 @@
   position: absolute;
   width: 30%;
   height: 60%;
-  left: 430px;
+  left: 490px;
   top: 15px;
   -webkit-box-shadow: -38px 30px 0px -31px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -38px 30px 0px -31px rgba(0, 0, 0, 0.75);
@@ -136,6 +137,10 @@ LOADING BAR
   width: 0%;
 }
 
+#loadingBarNull {
+  width: 0;
+}
+
 /**************************
 SCROLLBAR
 **************************/
@@ -193,6 +198,15 @@ SETTINGS DIV
   width: 25px;
 }
 
+.disclaimer {
+  width: 120px;
+  border: 1px solid black;
+  position: absolute;
+  top: 5px;
+  left: 0;
+  font-size: 8px;
+}
+
 #btnResume, #btnAbout, #btnPortfolio, #btnContact {
   justify-content: center;
   align-items: center;
@@ -219,6 +233,7 @@ SETTINGS DIV
   display: inline-block;
   line-height: 0px;
   letter-spacing: 0;
+  word-spacing: 0;
 }
 
 #resume_main a {

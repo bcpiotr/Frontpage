@@ -7,16 +7,17 @@ VARIABLES
   var basicAnimationTime = 1200; //okresla wyjsciowy czas trwania animacji
   var colorsArray = ["#FFFFFF"]; //tablica kolorow wykrozystywanych do animacji mozaiki, umozliwia ustawienie wiele kolorow mozaiki
   var portfolioArray = [
-    [1, 'http://github.com', 'http://rollpack.pl', 'bootstrap RWD', 'Description...<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec ligula quis est euismod aliquet sed ac ex. ', "img/portfolio/rollpack.png"],
-    [2, 'http://github.com', 'http://google.pl', 'rwd flexbox onepage', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec ligula quis est euismod aliquet sed ac ex. Donec nec ligula quis est euismod aliquet sed ac ex.', "img/portfolio/portfBckg2.png"],
-    [3, 'http://github.com', 'http://google.pl', 'tag#1 tag#2 tag#3', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec ligula quis est euismod aliquet sed ac ex.', "img/portfolio/placeholder.png"],
-    [4, 'http://github.com', 'http://google.pl', 'tag#1 tag#2 tag#3', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec ligula quis est euismod aliquet sed ac ex.', "img/portfolio/placeholder.png"],
-    [5, 'http://github.com', 'http://google.pl', 'tag#1 tag#2 tag#3', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec ligula quis est euismod aliquet sed ac ex.', "img/portfolio/placeholder.png"]
+    [1, 'https://github.com/bcpiotr/rollpack', 'http://rollpack.pl', 'bootstrap RWD', 'Jest to jeden z moich projektów wykonanych przed odbyciem kursu. Stronę przygotowałem dla produktu własnego autorstwa jako narzędzie do prowadzenia sprzedaży. Mimo, iż teraz dostrzegam liczne braki w kodzie, pozostawiam go w niezmienionej formie, gdyż świetnie obrazuje to jakie postępy poczyniłem.  ', "img/portfolio/rollpack.png"],
+    [2, 'https://github.com/bcpiotr/Fudi_LandingPage', 'http://prnowak.ayz.pl/fudi/', 'rwd flexbox onepage', 'Prosty projekt ladning-page, w pełni responsywny, z wykorzystaniem flexboxa. Na ukończeniu.', "img/portfolio/portfBckg2.png"],
+    [3, 'https://github.com/bcpiotr/Frontpage', 'http://prnowak.ayz.pl', 'js jquery flexbox', 'To strona, ktorą właśnie przeglądasz. Nad nią właśnie pracowałem podczas warsztatów Coders Lab i to ona zajela mi najwięcej czasu. Dokładny opis znajduje się na GitHubie.', "img/portfolio/portfolio.png"],
+    [4, 'https://github.com/bcpiotr/mailing', 'http://prnowak.ayz.pl/mailing/', 'mailing psd->html', 'Prosty mailing w ramach ćwiczenia. Odwzorowany z dostarczonego projektu .psd', "img/portfolio/mailing.png"],
+    [5, 'https://github.com/bcpiotr/malePsotyV1', 'http://prnowak.ayz.pl/psoty/', 'rwd cms one-page', 'Mój pierwszy komercyjny projekt. Obecnie wprowadzane sa zmiany do projektu graficznego, wiec teraz stworzony jest tylko zarys kodu (aby potwierdzic u klienta ustalony uklad strony). Dokładny opis na GitHubie.', "img/portfolio/placeholder.png"]
   ];
 
 /***************************
 WYWOLYWANIE FUNKCJI PO OTWARCIU STRONY
 **************************/
+
 setButtons(); //ustawia buttony na ostatnich 4 panelach mozaiki
 loadingBar(basicAnimationTime*0.8); //pierwsze wywolanie loadingbara jest krotsze dwukrotnie
 
@@ -88,17 +89,17 @@ function loadingBar(time){
 FUNCTION PANEL RESIZE
 *************************/
 //przy wejsciu sprawdza szerokosc 'main' i ew. zmienia css height dla panelu
-  var width = main.width()/10;
-  if (main.width() < 670) {
-    panel.css("height", width);
-  }
-
-//Przy resize zmienia w css height i width panelu
-  $(window).on('resize',function(){
-    width = main.width()/10;
-    panel.css("height", width);
-    panel.css("width", width);
-  })
+var width = main.width()/10;
+if (main.width() < 670) {
+  panel.css("height", width);
+}
+//
+// //Przy resize zmienia w css height i width panelu
+// $(window).on('resize',function(){
+//   width = main.width()/10;
+//   panel.css("height", width);
+//   panel.css("width", width);
+// })
 
 /*****************************************
 FUNCTION SET BUTTONS - ustawia buttony na ostatnich 4 panelach
@@ -238,9 +239,9 @@ function showPortfolio(time,index){
 
         setTimeout(function() {
         $('#port_opis').html('<p> '+portfolioArray[id][4]+'</p>'); //zmienia kolor pola na pobrany z tablicy i wrzuca opis z tablicy
-        $('#port_tags').html('<i class="fa fa-tag"></i> '+ portfolioArray[id][3]+'a');
-        $('#port_git').html('<a href='+portfolioArray[id][2]+' target=_blank><i class="fa fa-github"></i></a>');
-        $('#port_link').html('<a href='+portfolioArray[id][3]+' target=_blank><i class="fa fa-link"></i></a>');
+        $('#port_tags').html('<i class="fa fa-tag"></i> '+ portfolioArray[id][3]);
+        $('#port_git').html('<a href='+portfolioArray[id][1]+' target=_blank><i class="fa fa-github"></i></a>');
+        $('#port_link').html('<a href='+portfolioArray[id][2]+' target=_blank><i class="fa fa-link"></i></a>');
         main.css('backgroundImage','url('+portfolioArray[id][5]+')');
         mozaicHide(basicAnimationTime*1.2);
       }, basicAnimationTime*1.3);
@@ -301,7 +302,7 @@ function formValidation(){
   }
 
   if(message.length <= 0) {
-    $('#contact-message').attr('placeholder','Are You sure?').css('backgroundColor','#737778');
+    $('#contact-message').attr('placeholder','Na pewno ma zostać puste?').css('backgroundColor','#737778');
     event.preventDefault();
     error = 1;
   }
@@ -366,5 +367,6 @@ $('.settingBtnColor').on('click',function(){
   });
   $(this).css('border','1px solid black');
 })
+
 
 });

@@ -1,7 +1,7 @@
 // ABOUT
 #about_main {
   position: absolute;
-  width: 50%;
+  width: 65%;
   height: 70%;
   top: 15px;
   left: 25px;
@@ -12,6 +12,7 @@
 
     #about_main p {
       font-size: 12px;
+      line-height: 12px;
     }
 
     #about_main img {
@@ -23,7 +24,7 @@
   position: absolute;
   width: 30%;
   height: 60%;
-  left: 430px;
+  left: 490px;
   top: 15px;
   @include box-shadow;
   z-index: 0;
